@@ -2,8 +2,21 @@
     width: 100%;
     height: 100vh;
     position: relative;
-    background-image: linear-gradient(47deg, rgb(16, 55, 128) 0%, rgb(52, 164, 216) 46%, rgb(234, 248, 255) 100%);
     background-attachment: fixed;
+    display: flex;
+    color: black;
+}
+#welcomeBox .big{
+    width: 100%;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 300;
+}
+#welcomeBox .small{
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 100;
 }
 #descriptBox{
     width: 100%;
