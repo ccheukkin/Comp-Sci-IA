@@ -10,6 +10,11 @@
     transition: top 0.3s;
     z-index: 2;
 }
+#navBar a{
+    text-decoration: none;
+    color: rgb(59, 59, 59);
+    height: 100%;
+}
 #logo{
     margin-left: 15px;
     height: 45px;
