@@ -52,15 +52,15 @@
     background-attachment: fixed;
 }
 .descriptBox.questions{
-    flex-direction: row;
+    flex-direction: row-reverse;
     background-image: url("../images/questions.jpg");
 }
 .descriptBox.quiz{
-    flex-direction: row-reverse;
+    flex-direction: row;
     background-image: url("../images/quiz.jpg");
 }
 .descriptBox.result{
-    flex-direction: row;
+    flex-direction: row-reverse;
     background-image: url("../images/result.jpg");
 }
 .descriptBox .column{
@@ -76,6 +76,7 @@
 .descriptBox .big{
     font-size: 50px;
     font-weight: 300;
+    font-family: Roboto, sans-serif;
 }
 .descriptBox .small{
     font-size: 20px;
@@ -91,7 +92,7 @@
     transition: color 0.2s;
 }
 .descriptBox .button:hover{
-    color: rgb(218, 226, 231);
+    color: rgb(164, 200, 233);
 }
 .descriptBox a{
     font-weight: 400;
