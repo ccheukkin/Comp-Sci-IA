@@ -1,24 +1,7 @@
-function setupNavBar(){
-    $("#homeButton").hover(function(){
-        $("#homeColor").css("width", "100%");
-    }, function(){
-        $("#homeColor").css("width", "0%");
-    })
-    $("#questionsButton").hover(function(){
-        $("#questionsColor").css("width", "100%");
-    }, function(){
-        $("#questionsColor").css("width", "0%");
-    })
-    $("#resultButton").hover(function(){
-        $("#resultColor").css("width", "100%");
-    }, function(){
-        $("#resultColor").css("width", "0%");
-    })
-    $("#quizButton").hover(function(){
-        $("#quizColor").css("width", "100%");
-    }, function(){
-        $("#quizColor").css("width", "0%");
-    })
+function navBarSwitch(color, active){
+    let width = "100%"
+    if (active) { width = "0%"; }
+    $(color).css("width", width);
 }
 
 var prevScrollPos = window.pageYOffset;
