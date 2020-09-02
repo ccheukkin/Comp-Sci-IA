@@ -1,6 +1,8 @@
 $(document).ready(function(){
     setupFilterY();
     setupFilterT();
+    filterSelectY("#colorAllY", "#textAllY", "#filterAllY");
+    filterSelectT("#colorAllT", "#textAllT", "#filterAllT");
 })
 
 // year

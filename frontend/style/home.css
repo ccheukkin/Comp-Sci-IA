@@ -92,7 +92,7 @@
     transition: color 0.2s;
 }
 .descriptBox .button:hover{
-    color: rgb(164, 200, 233);
+    color: rgb(211, 211, 211);
 }
 .descriptBox a{
     font-weight: 400;
