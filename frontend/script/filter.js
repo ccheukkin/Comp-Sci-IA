@@ -25,18 +25,20 @@ function filterOffY(color){
 }
 
 function filterSelectY(color, text, filter){
-    if (prevColorY!=null & prevTextY!=null & prevFilterY!=null){
-        $(prevColorY).css("height", "5px");
-        $(prevColorY).css("width", "0px");
-        $(prevTextY).css("color", "black");
-        $(prevFilterY).css("cursor", "pointer");
+    if (prevColorY!=color){
+        if (prevColorY!=null & prevTextY!=null & prevFilterY!=null){
+            $(prevColorY).css("height", "5px");
+            $(prevColorY).css("width", "0px");
+            $(prevTextY).css("color", "black");
+            $(prevFilterY).css("cursor", "pointer");
+        }
+        prevColorY = color;
+        $(color).css("height", "100%");
+        prevTextY = text;
+        $(text).css("color", "white");
+        prevFilterY = filter;
+        $(filter).css("cursor", "auto");
     }
-    prevColorY = color;
-    $(color).css("height", "100%");
-    prevTextY = text;
-    $(text).css("color", "white");
-    prevFilterY = filter;
-    $(filter).css("cursor", "auto");
 }
 
 function setupFilterY(){
@@ -75,18 +77,20 @@ function filterOffT(color){
 }
 
 function filterSelectT(color, text, filter){
-    if (prevColorT!=null & prevTextT!=null & prevFilterT!=null){
-        $(prevColorT).css("height", "5px");
-        $(prevColorT).css("width", "0px");
-        $(prevTextT).css("color", "black");
-        $(prevFilterT).css("cursor", "pointer");
+    if (prevColorY!=color){
+        if (prevColorT!=null & prevTextT!=null & prevFilterT!=null){
+            $(prevColorT).css("height", "5px");
+            $(prevColorT).css("width", "0px");
+            $(prevTextT).css("color", "black");
+            $(prevFilterT).css("cursor", "pointer");
+        }
+        prevColorT = color;
+        $(color).css("height", "100%");
+        prevTextT = text;
+        $(text).css("color", "white");
+        prevFilterT = filter;
+        $(filter).css("cursor", "auto");
     }
-    prevColorT = color;
-    $(color).css("height", "100%");
-    prevTextT = text;
-    $(text).css("color", "white");
-    prevFilterT = filter;
-    $(filter).css("cursor", "auto");
 }
 
 function setupFilterT(){
