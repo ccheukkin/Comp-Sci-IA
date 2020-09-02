@@ -1,8 +1,60 @@
 $(document).ready(function(){
+    setupFilterY();
     setupFilterT();
 })
 
-var listT = ["IO", "OS"]
+// year
+var listY = ["AllY", "2019", "2020"]
+
+var prevColorY = null;
+var prevTextY = null;
+var prevFilterY = null;
+
+function filterOnY(color){
+    if (prevColorY!=color){
+        $(color).css("width", "100%");
+    }
+}
+
+function filterOffY(color){
+    if (prevColorY!=color){
+        $(color).css("width", "0%");
+    }
+}
+
+function filterSelectY(color, text, filter){
+    if (prevColorY!=null & prevTextY!=null & prevFilterY!=null){
+        $(prevColorY).css("height", "5px");
+        $(prevColorY).css("width", "0px");
+        $(prevTextY).css("color", "black");
+        $(prevFilterY).css("cursor", "pointer");
+    }
+    prevColorY = color;
+    $(color).css("height", "100%");
+    prevTextY = text;
+    $(text).css("color", "white");
+    prevFilterY = filter;
+    $(filter).css("cursor", "auto");
+}
+
+function setupFilterY(){
+    for (let i=0; i<listY.length; i++){
+        let filterName = listY[i];
+        let filter = "#filter"+filterName;
+        let color = "#color"+filterName
+        $(filter).hover(function(){
+            filterOnY(color);
+        }, function(){
+            filterOffY(color);
+        });
+        $(filter).click(function(){
+            filterSelectY(color, "#text"+filterName, filter);
+        });
+    }
+}
+
+// topic
+var listT = ["AllT", "IO", "OS"]
 
 var prevColorT = null;
 var prevTextT = null;
