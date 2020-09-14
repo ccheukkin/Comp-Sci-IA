@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/logo.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="style/main.css" />
+    <link rel="stylesheet" type="text/css" href="style/navBar.css" />
+    <link rel="stylesheet" type="text/css" href="style/questions.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script/main.js"></script>
+    <script src="script/navBar.js"></script>
+    <script src="script/filter.js"></script>
+    <title>Questions</title>
+</head>
+<body>
+    <div id="navBar">
+        <div id="logo"></div>
+        <div id="logoWords">Questions Sorter</div>
+        <a href="./"><div class="button" onmouseover="navBarSwitch('#homeColor',false)" onmouseout="navBarSwitch('#homeColor',true)">Home<div class="container"><div class="color" id="homeColor"></div></div></div></a>
+        <a href="questions.html"><div class="button" onmouseover="navBarSwitch('#questionsColor',false)" onmouseout="navBarSwitch('#questionsColor',true)">Questions<div class="container"><div class="color" id="questionsColor"></div></div></div></a>
+        <a href="result.html"><div class="button" onmouseover="navBarSwitch('#resultColor',false)" onmouseout="navBarSwitch('#resultColor',true)">Result<div class="container"><div class="color" id="resultColor"></div></div></div></a>
+        <a href="quiz.html"><div class="button" onmouseover="navBarSwitch('#quizColor',false)" onmouseout="navBarSwitch('#quizColor',true)">Quiz<div class="container"><div class="color" id="quizColor"></div></div></div></a>
+    </div>
+    <div id="login">Login</div>
+
+    <div id="placeholder"></div>
+    <div id="filter">
+        <div class="filterBy">
+            <div class="option" id="filterAllY"><div id="textAllY" class="above">All</div><div class="container"><div id="colorAllY" class="filterColor" style="width:100%;"></div></div></div>
+            <div class="option" id="filter2019"><div id="text2019" class="above">2019</div><div class="container"><div id="color2019" class="filterColor"></div></div></div>
+            <div class="option" id="filter2020"><div id="text2020" class="above">2020</div><div class="container"><div id="color2020" class="filterColor"></div></div></div>
+        </div>
+        <div class="placeholder"></div>
+        <div class="filterBy">
+            <div class="option" id="filterAllT"><div id="textAllT" class="above">All</div><div class="container"><div id="colorAllT" class="filterColor" style="width:100%;"></div></div></div>
+            <div class="option" id="filterIO"><div id="textIO" class="above">Input/Output</div><div class="container"><div id="colorIO" class="filterColor"></div></div></div>
+            <div class="option" id="filterOS"><div id="textOS" class="above">Operating System</div><div class="container"><div id="colorOS" class="filterColor"></div></div></div>
+        </div>
+    </div>
+
+    <div id="sorted">
+        
+    </div>
+</body>
+</html>
