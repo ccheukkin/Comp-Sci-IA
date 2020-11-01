@@ -5,5 +5,12 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
   version="4.0"
   metadata-complete="true">
-
+<servlet>
+  <servlet-name>LoginServlet</servlet-name>
+  <servlet-class>user.login</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>LoginServlet</servlet-name>
+  <url-pattern>/auth</url-pattern>
+</servlet-mapping>
 </web-app>
