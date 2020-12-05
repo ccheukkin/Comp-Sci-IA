@@ -1,17 +1,19 @@
 package qsf.api;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
-
 import qsf.wrapper.*;
 
 public class ExtractionInterface {
-    public ExtractionInterface(){
+    public boolean review;
+
+    public ExtractionInterface(boolean review){
 
     }
+
     public void UploadDoc(XWPFDocument doc){
 
     }
-    public Unsorted[] BackendExtract(){
+    public Question[] BackendExtract(){
 
     }
     public void ModifyExtraction(){

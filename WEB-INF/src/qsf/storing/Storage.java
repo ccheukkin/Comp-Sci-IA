@@ -2,7 +2,6 @@ package qsf.storing;
 
 import qsf.wrapper.*;
 
-// class definition for the storing class
 public abstract class Storage {
     public abstract void UnsortedStore(Content content);
     public abstract Content GetUnsorted();
