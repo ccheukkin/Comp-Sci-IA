@@ -1,7 +1,8 @@
-package run.extraction;
+package qsf.extraction;
 
-import run.wrapper.Content;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+
+import qsf.wrapper.Content;
 
 // class definition for content extraction class
 public abstract class Extract{

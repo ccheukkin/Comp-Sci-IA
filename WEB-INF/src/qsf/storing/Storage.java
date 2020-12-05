@@ -1,6 +1,6 @@
-package run.storing;
+package qsf.storing;
 
-import run.wrapper.*;
+import qsf.wrapper.*;
 
 // class definition for the storing class
 public abstract class Storage {

@@ -1,7 +1,8 @@
-package run.api;
+package qsf.api;
 
-import run.wrapper.*;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+
+import qsf.wrapper.*;
 
 public class ExtractionInterface {
     public ExtractionInterface(){

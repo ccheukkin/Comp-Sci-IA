@@ -1,6 +1,6 @@
-package run.api;
+package qsf.api;
 
-import run.wrapper.Question;
+import qsf.wrapper.Question;
 
 public class QueryInterface {
     public QueryInterface(){

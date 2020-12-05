@@ -1,6 +1,6 @@
-package run.api;
+package qsf.api;
 
-import run.wrapper.*;
+import qsf.wrapper.*;
 
 public class SortingInterface {
     public SortingInterface(){

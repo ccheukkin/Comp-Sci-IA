@@ -1,4 +1,4 @@
-package run.api;
+package qsf.api;
 
 public class FrontendInterface {
     public ExtractionInterface extract;

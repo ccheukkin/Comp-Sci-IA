@@ -1,4 +1,4 @@
-package run.sorting;
+package qsf.sorting;
 
 // class definition for the sorting class
 public abstract class Sort {
