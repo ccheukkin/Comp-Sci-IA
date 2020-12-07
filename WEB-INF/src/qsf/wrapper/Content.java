@@ -4,14 +4,14 @@ public class Content {
     public String author;
     public String dataType;
     public Object contentObj;
-    public int globalAddress;
-    public int localAddress;
+    public int packetID;
+    public int questionID;
     
-    public Content(String author, String dataType, Object contentObj, int globalAddress, int localAddress){
+    public Content(String author, String dataType, Object contentObj, int packetID, int questionID, int ContentID){
         this.author = author;
         this.dataType = dataType;
         this.contentObj = contentObj;
-        this.globalAddress = globalAddress;
-        this.localAddress = localAddress;
+        this.packetID = packetID;
+        this.questionID = questionID;
     }
 }

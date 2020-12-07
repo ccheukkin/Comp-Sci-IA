@@ -1,20 +1,18 @@
 package qsf.wrapper;
 
+import java.util.LinkedList;
+
 public class Question {
-    public Content[] contents;
-    public String identifier;
+    public LinkedList<Content> contents;
     public int[] categories;
     public int year;
+    public int packetID;
+    public int questionID;
 
-    public Question(String identifier, Content[] contents){
-        this.identifier = identifier;
-        this.contents = contents;
-    }
-    public Question(String identifier, Content[] contents, int[] categories, int year){
-        this.identifier = identifier;
-        this.contents = contents;
-        this.categories = categories;
-        this.year = year;
+    public Question(int packetID, int questionID){
+        this.contents = new LinkedList<Content>();
+        this.packetID = packetID;
+        this.questionID = questionID;
     }
 
     public void setYear(int year){
@@ -22,5 +20,8 @@ public class Question {
     }
     public void setCategories(int[] categories) {
         this.categories = categories;
+    }
+    public void InsertContent(Content newContent){
+        contents.add(newContent);
     }
 }

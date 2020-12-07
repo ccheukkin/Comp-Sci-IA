@@ -2,6 +2,7 @@ package qsf.extraction;
 
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import qsf.wrapper.*;
+import java.util.LinkedList;
 
 public class DefaultTextExtract extends Extract{
     public String name;
@@ -14,7 +15,7 @@ public class DefaultTextExtract extends Extract{
         this.options = new String[]{};
     }
 
-    public Content[] ExtractFrom(XWPFWordExtractor wordExtract, int[] options){
+    public LinkedList<Content> ExtractFrom(XWPFWordExtractor wordExtract, int[] options){
         
     }
 }
