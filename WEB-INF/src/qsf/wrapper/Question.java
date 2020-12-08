@@ -15,13 +15,16 @@ public class Question {
         this.questionID = questionID;
     }
 
-    public void setYear(int year){
+    public void SetYear(int year){
         this.year = year;
     }
-    public void setCategories(int[] categories) {
+    public void SetCategories(int[] categories) {
         this.categories = categories;
     }
     public void InsertContent(Content newContent){
         contents.add(newContent);
+    }
+    public void DeleteContent(int contentInd){
+        contents.remove(contentInd);
     }
 }

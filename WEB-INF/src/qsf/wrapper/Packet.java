@@ -35,4 +35,7 @@ public class Packet {
         }
         GetQuestion(questionID).InsertContent(newContent);
     }
+    public void DeleteContent(int questionID, int contentInd){
+        GetQuestion(questionID).DeleteContent(contentInd);
+    }
 }

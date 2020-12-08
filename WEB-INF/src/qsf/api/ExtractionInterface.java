@@ -13,25 +13,27 @@ public class ExtractionInterface {
     public boolean review;
     private Extract[] extractSub;
     private ArrayList<Packet> cachedPackets;
+    private int changeIDHead;
 
     public ExtractionInterface(boolean review){
         this.review = review;
         this.extractSub = new Extract[]{new DefaultTextExtract()};
         this.cachedPackets = new ArrayList<Packet>();
+        changeIDHead = 0;
     }
 
     public Packet[] Upload(XWPFDocument doc, JSONArray options){
         XWPFWordExtractor we = new XWPFWordExtractor(doc);
-        Assemble(BackendExtract(we, options));
-        if (!review) { Confirm(); }
-        return Response();
+        BackendExtract(we, options);
+        if (!review) { Commit(); }
+        return cachedPackets.toArray(new Packet[cachedPackets.size()]);
     }
     private LinkedList<Content> BackendExtract(XWPFWordExtractor we, JSONArray options){
         LinkedList<Content> extractedList = new LinkedList<Content>();
         for (int i = 0; i < extractSub.length; i++){
             LinkedList<Content> extracted = extractSub[i].ExtractFrom(we, (JSONObject)options.get(i));
             for (int j = 0; j < extracted.size(); j++){
-                extractedList.add(extracted.get(j));
+                AddCommit(extracted.get(j));
             }
         }
         return extractedList;
@@ -53,23 +55,51 @@ public class ExtractionInterface {
         }
         return null;
     }
-    private void Assemble(LinkedList<Content> contents){
-        for (int i = 0; i < contents.size(); i++){
-            Content newContent = contents.get(i);
-            int packetID = newContent.packetID;
-            if (!HasPacket(packetID)){
-                cachedPackets.add(new Packet(packetID));
-            }
-            GetPacket(packetID).InsertContent(newContent);
-        }
+
+    public int Delete(int packetID, int questionID, int contentInd){
+
+        return changeIDHead++;
     }
-    private Packet[] Response(){
-        return cachedPackets.toArray(new Packet[cachedPackets.size()]);
-    }
-    public void Modify(String author, JSONObject options){
+    public void UndoDelete(int changeID){
 
     }
-    public void Confirm(){
+    private void DeleteCommit(int packetID, int questionID, int contentInd){
+        GetPacket(packetID).DeleteContent(questionID, contentInd);
+    }
+
+    public int Add(Content newContent){
+
+        return changeIDHead++;
+    }
+    public void UndoAdd(int changeID){
+
+    }
+    private void AddCommit(Content newContent){
+        int packetID = newContent.packetID;
+        if (!HasPacket(packetID)){
+            cachedPackets.add(new Packet(packetID));
+        }
+        GetPacket(packetID).InsertContent(newContent);
+    }
+
+    public int Modify(int packetID, int questionID, int contentInd, JSONObject options){
+
+        return changeIDHead++;
+    }
+    public void UndoModify(int changeID){
+
+    }
+    private void ModifyCommit(int packetID, int questionID, int contentInd, JSONObject options){
+
+    }
+
+    public void ResetChange(){
+
+    }
+    public void Commit(){
+
+    }
+    private void ReleaseCache(){
 
     }
 }
