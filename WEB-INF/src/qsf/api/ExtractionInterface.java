@@ -5,29 +5,35 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import qsf.wrapper.*;
-import qsf.extraction.*;
+import qsf.extraction.Extract;
+import qsf.extraction.wrapper.Change;
+import qsf.storing.*;
 import java.util.LinkedList;
 import java.util.ArrayList;
 
 public class ExtractionInterface {
-    public boolean review;
+    public boolean extractionReview;
+    public boolean sortingReview;
     private Extract[] extractSub;
     private ArrayList<Packet> cachedPackets;
     private int changeIDHead;
     private LinkedList<Change> changeList;
+    private Storage storeSub;
 
-    public ExtractionInterface(boolean review){
-        this.review = review;
-        this.extractSub = new Extract[]{new DefaultTextExtract()};
+    public ExtractionInterface(Extract[] extractSub, Storage storeSub, boolean extractionReview, boolean sortingReview){
+        this.extractionReview = extractionReview;
+        this.sortingReview = sortingReview;
+        this.extractSub = extractSub;
         this.cachedPackets = new ArrayList<Packet>();
         this.changeIDHead = 0;
         this.changeList = new LinkedList<Change>();
+        this.storeSub = storeSub;
     }
 
     public Packet[] Upload(XWPFDocument doc, JSONArray options){
         XWPFWordExtractor we = new XWPFWordExtractor(doc);
         BackendExtract(we, options);
-        if (!review) { Complete(); }
+        if (!extractionReview) { Complete(); }
         return cachedPackets.toArray(new Packet[cachedPackets.size()]);
     }
     private LinkedList<Content> BackendExtract(XWPFWordExtractor we, JSONArray options){
@@ -84,7 +90,6 @@ public class ExtractionInterface {
         changeList.add(newChange);
         return changeIDHead;
     }
-
     public int Modify(Content changeContent, int changeContentInd, JSONObject options){
         changeIDHead++;
         Content newContent = GetExtractSub(changeContent.author).Modify(changeContent, changeContentInd, options);
@@ -131,6 +136,7 @@ public class ExtractionInterface {
         for (int i = 0; i < changeList.size(); i++){
             Commit(changeList.get(i));
         }
+        storeSub.Store(cachedPackets);
         ReleaseCache();
     }
     private void ReleaseCache(){

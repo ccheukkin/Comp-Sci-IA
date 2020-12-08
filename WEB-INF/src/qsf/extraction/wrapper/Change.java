@@ -1,4 +1,4 @@
-package qsf.extraction;
+package qsf.wrapper.extraction;
 
 import qsf.wrapper.*;
 

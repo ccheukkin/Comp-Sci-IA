@@ -1,5 +1,6 @@
-package qsf.extraction;
+package qsf.extraction.subclass;
 
+import qsf.extraction.Extract;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import qsf.wrapper.*;
 import java.util.LinkedList;
