@@ -1,9 +1,15 @@
 package qsf.sorting.subclass;
 
+import qsf.wrapper.*;
 import qsf.sorting.Sort;
+import org.json.simple.JSONObject;
 
 public class KeywordSort extends Sort{
-    public int[] Categorize(String question){
+    public KeywordSort(){
+
+    }
+
+    public void Categorize(Packet packet, JSONObject options){
 
     }
 }

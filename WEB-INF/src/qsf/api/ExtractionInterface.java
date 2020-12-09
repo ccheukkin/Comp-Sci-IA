@@ -9,32 +9,29 @@ import qsf.extraction.Extract;
 import qsf.extraction.wrapper.Change;
 import qsf.storing.*;
 import java.util.LinkedList;
-import java.util.ArrayList;
 
 public class ExtractionInterface {
-    public boolean extractionReview;
-    public boolean sortingReview;
     private Extract[] extractSub;
-    private ArrayList<Packet> cachedPackets;
+    private LinkedList<Packet> cachedPackets;
+    private LinkedList<Integer> cachedPacketIDs;
     private int changeIDHead;
     private LinkedList<Change> changeList;
     private Storage storeSub;
 
-    public ExtractionInterface(Extract[] extractSub, Storage storeSub, boolean extractionReview, boolean sortingReview){
-        this.extractionReview = extractionReview;
-        this.sortingReview = sortingReview;
+    public ExtractionInterface(Extract[] extractSub, Storage storeSub){
         this.extractSub = extractSub;
-        this.cachedPackets = new ArrayList<Packet>();
+        this.cachedPackets = new LinkedList<Packet>();
+        this.cachedPacketIDs = new LinkedList<Integer>();
         this.changeIDHead = 0;
         this.changeList = new LinkedList<Change>();
         this.storeSub = storeSub;
     }
 
-    public Packet[] Upload(XWPFDocument doc, JSONArray options){
+    public LinkedList<Integer> Upload(XWPFDocument doc, JSONArray options){
         XWPFWordExtractor we = new XWPFWordExtractor(doc);
         BackendExtract(we, options);
-        if (!extractionReview) { Complete(); }
-        return cachedPackets.toArray(new Packet[cachedPackets.size()]);
+        storeSub.Store(cachedPackets);
+        return Response();
     }
     private LinkedList<Content> BackendExtract(XWPFWordExtractor we, JSONArray options){
         LinkedList<Content> extractedList = new LinkedList<Content>();
@@ -47,8 +44,8 @@ public class ExtractionInterface {
         return extractedList;
     }
     private boolean HasPacket(int packetID){
-        for (int i = 0; i < cachedPackets.size(); i++){
-            if (cachedPackets.get(i).packetID == packetID){
+        for (int i = 0; i < cachedPacketIDs.size(); i++){
+            if (cachedPacketIDs.get(i) == packetID){
                 return true;
             }
         }
@@ -75,8 +72,17 @@ public class ExtractionInterface {
         int packetID = newContent.packetID;
         if (!HasPacket(packetID)){
             cachedPackets.add(new Packet(packetID));
+            cachedPacketIDs.add(packetID);
         }
         GetPacket(packetID).InsertContent(newContent);
+    }
+    public LinkedList<Packet> Get(LinkedList<Integer> packetIDs){
+        if (!Cached(packetIDs)){
+            ReleaseCache();
+            cachedPackets = storeSub.Get(packetIDs);
+        }
+        cachedPacketIDs = packetIDs;
+        return cachedPackets;
     }
     public int Delete(Content delContent, int contentInd){
         changeIDHead++;
@@ -132,6 +138,9 @@ public class ExtractionInterface {
         int contentInd = newChange.contentInd;
         GetPacket(packetID).DeleteContent(questionID, contentInd);
     }
+    private LinkedList<Integer> Response(){
+        return (LinkedList<Integer>) cachedPacketIDs.clone();
+    }
     public void Complete(){
         for (int i = 0; i < changeList.size(); i++){
             Commit(changeList.get(i));
@@ -140,7 +149,17 @@ public class ExtractionInterface {
         ReleaseCache();
     }
     private void ReleaseCache(){
-        cachedPackets = new ArrayList<Packet>();
+        cachedPackets = new LinkedList<Packet>();
+        cachedPacketIDs = new LinkedList<Integer>();
         ResetChange();
+    }
+    private boolean Cached(LinkedList<Integer> inputList){
+        if (inputList.size() != cachedPacketIDs.size()) { return false; }
+        for (int i = 0; i < inputList.size(); i ++){
+            if (inputList.get(i) != cachedPacketIDs.get(i)){
+                return false;
+            }
+        }
+        return true;
     }
 }

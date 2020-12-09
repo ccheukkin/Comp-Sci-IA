@@ -1,11 +1,11 @@
 package qsf.wrapper;
 
 import java.util.LinkedList;
+import qsf.sorting.wrapper.Categories;
 
 public class Question {
     public LinkedList<Content> contents;
-    public int[] categories;
-    public int year;
+    public Categories type;
     public int packetID;
     public int questionID;
 
@@ -13,14 +13,9 @@ public class Question {
         this.contents = new LinkedList<Content>();
         this.packetID = packetID;
         this.questionID = questionID;
+        this.type = new Categories();
     }
 
-    public void SetYear(int year){
-        this.year = year;
-    }
-    public void SetCategories(int[] categories) {
-        this.categories = categories;
-    }
     public void InsertContent(Content newContent){
         contents.add(newContent);
     }

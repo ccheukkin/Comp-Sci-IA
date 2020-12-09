@@ -28,7 +28,7 @@ public class FrontendInterface {
         this.sortSub = new KeywordSort();
         this.storeSub = new LocalFileStore();
         
-        this.extract = new ExtractionInterface(extractSub, storeSub, extractionReview, sortingReview);
+        this.extract = new ExtractionInterface(extractSub, storeSub);
         this.sort = new SortingInterface();
         this.query = new QueryInterface();
     }
