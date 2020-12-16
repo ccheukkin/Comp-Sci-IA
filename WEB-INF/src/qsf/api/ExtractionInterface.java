@@ -60,9 +60,9 @@ public class ExtractionInterface {
         }
         return null;
     }
-    private Extract GetExtractSub(String name){
+    private Extract GetExtractSub(int author){
         for (int i = 0; i < extractSub.length; i++){
-            if (extractSub[i].name == name){
+            if (extractSub[i].GetID() == author){
                 return extractSub[i];
             }
         }
@@ -96,10 +96,9 @@ public class ExtractionInterface {
         changeList.add(newChange);
         return changeIDHead;
     }
-    public int Modify(Content changeContent, int changeContentInd, JSONObject options){
+    public int Modify(Content changeContent, JSONObject options){
         changeIDHead++;
-        Content newContent = GetExtractSub(changeContent.author).Modify(changeContent, changeContentInd, options);
-        Change newChange = new Change(changeIDHead, newContent, changeContent, changeContentInd);
+        Change newChange = new Change(changeIDHead, changeContent, options);
         changeList.add(newChange);
         return changeIDHead;
     }
@@ -123,20 +122,24 @@ public class ExtractionInterface {
                 CommitDelete(newChange);
                 break;
             case 2:
-                CommitDelete(newChange);
-                CommitAdd(newChange);
+                CommitModify(newChange);
                 break;
         }
     }
     private void CommitAdd(Change newChange){
-        InsertContent(newChange.addContent);
+        InsertContent(newChange.targetContent);
     }
     private void CommitDelete(Change newChange){
-        Content deleteContent = newChange.deleteContent;
+        Content deleteContent = newChange.targetContent;
         int packetID = deleteContent.packetID;
         int questionID = deleteContent.questionID;
         int contentInd = newChange.contentInd;
         GetPacket(packetID).DeleteContent(questionID, contentInd);
+    }
+    private void CommitModify(Change newChange){
+        Content changeContent = newChange.targetContent;
+        JSONObject options = newChange.options;
+        GetExtractSub(changeContent.author).Modify(changeContent, options);
     }
     private LinkedList<Integer> Response(){
         return (LinkedList<Integer>) cachedPacketIDs.clone();

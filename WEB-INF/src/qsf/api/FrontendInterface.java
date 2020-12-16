@@ -14,22 +14,14 @@ public class FrontendInterface {
     public Extract[] extractSub;
     public Sort sortSub;
     public Storage storeSub;
-    public boolean extractionReview;
-    public boolean sortingReview;
-    public boolean instaExtractionReview;
-    public boolean instaSortingReview;
 
     public FrontendInterface(){
-        this.extractionReview = true;
-        this.sortingReview = true;
-        this.instaExtractionReview = true;
-        this.instaSortingReview = true;
-        this.extractSub = new Extract[]{new DefaultTextExtract()};
+        this.extractSub = new Extract[]{new RegexExtract()};
         this.sortSub = new KeywordSort();
         this.storeSub = new LocalFileStore();
         
         this.extract = new ExtractionInterface(extractSub, storeSub);
-        this.sort = new SortingInterface();
-        this.query = new QueryInterface();
+        this.sort = new SortingInterface(sortSub, storeSub);
+        this.query = new QueryInterface(storeSub);
     }
 }

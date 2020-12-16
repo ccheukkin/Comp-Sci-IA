@@ -6,9 +6,14 @@ import qsf.wrapper.*;
 import java.util.LinkedList;
 
 public abstract class Extract{
-    public String name;
-    public String dataType;
-    public String[] options;
+    private int subclassID;
+    private String dataType;
+    public String[] extractOptions;
+    public String[] modifyOptions;
+    
     public abstract LinkedList<Content> ExtractFrom(XWPFWordExtractor wordExtract, JSONObject options);
-    public abstract Content Modify(Content changeContent, int changeContentInd, JSONObject options);
+    public abstract void Modify(Content changeContent, JSONObject options);
+    public int GetID(){
+        return subclassID;
+    }
 } 

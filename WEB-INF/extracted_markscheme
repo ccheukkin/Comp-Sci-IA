@@ -1,0 +1,432 @@
+M14/4/COMSC/SP1/ENG/TZ0/XX/M
+
+
+
+
+
+
+
+
+
+
+
+MARKSCHEME
+
+
+
+
+
+
+
+May 2014
+
+
+
+
+
+
+
+COMPUTER SCIENCE Standard Level
+Paper 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+12 pages
+
+
+
+General Marking Instructions
+
+1.      Follow the markscheme provided, award only whole marks and mark only in RED.
+
+2.      Make sure that the question you are about to mark is highlighted in the mark panel on the right-hand side of the screen.
+
+3.      Where a mark is awarded, a tick/check () must be placed in the text at the precise point where it becomes clear that the candidate deserves the mark. One tick to be shown for each mark awarded.
+
+4.      Sometimes, careful consideration is required to decide whether or not to award a mark.  In these cases use Scoris™ annotations to support your decision.  You are encouraged to write comments where it helps clarity, especially for re-marking purposes.   Use a text box for these additional comments. It should be remembered that the script may be returned to the candidate.
+
+5.      Personal codes/notations are unacceptable.
+
+6.      Where an answer to a part question is worth no marks but the candidate has attempted the part question, enter a zero in the mark panel on the right-hand side of the screen. Where an answer to a part question is worth no marks because the candidate has not attempted the part question, enter an “NR” in the mark panel on the right-hand side of the screen.
+
+7.      Ensure that you have viewed every page including any additional sheets.  Please ensure that you stamp ‘SEEN’ on any page that contains no other annotation.
+
+8.      A mark should not be awarded where there is contradiction within an answer.  Make a comment to this effect using a text box or the “CON” stamp.
+ (
+–
+ 
+10
+ 
+–
+) (
+M
+14/4/
+COMS
+C/
+SP
+1/E
+NG
+/TZ0/
+XX
+/
+M
+)
+
+
+
+Subject Details:        Computer Science SL Paper 1 Markscheme
+
+Mark Allocation
+
+Section A: Candidates are required to answer all questions. Total 25 marks. Section B:  Candidates are required to answer all questions. Total 45 marks.
+Maximum total = 70 marks.
+
+General
+
+A markscheme often has more specific points worthy of a mark than the total allows.  This is intentional. Do not award more than the maximum marks allowed for that part of a question.
+
+When deciding upon alternative answers by candidates to those given in the markscheme, consider the following points:
+
+       Each statement worth one point has a separate line and the end is signified by means of a semi-colon (;).
+
+       An alternative answer or wording is indicated in the markscheme by a “/”; either wording can be accepted.
+
+       Words in ( … ) in the markscheme are not necessary to gain the mark.
+
+       If the candidate’s answer has the same meaning or can be clearly interpreted as being the same as that in the markscheme then award the mark.
+
+       Mark positively.  Give candidates credit for what they have achieved and for what they have got correct, rather than penalizing them for what they have not achieved or what they have got wrong.
+
+       Remember  that  many  candidates  are  writing  in  a  second  language;  be  forgiving  of minor linguistic slips.   In this subject effective communication is more important than grammatical accuracy.
+
+       Occasionally, a part of a question may require a calculation whose answer is required for subsequent parts.  If an error is made in the first part then it should be penalized.  However, if the incorrect answer is used correctly in subsequent parts then follow through marks should be awarded. Indicate this with “FT”.
+
+
+General guidance
+
+Issue   Guidance
+Answering       more than the quantity of responses prescribed  in the questions        • In the case of an “identify” question read all answers and mark positively up to the maximum marks. Disregard incorrect answers.      • In  the  case  of  a  “describe” question,  which  asks  for  a  certain  number of  facts eg “describe two kinds”, mark the first two correct answers.  This could include two descriptions, one description and one identification, or two identifications. • In  the  case  of  an  “explain”  question,  which  asks  for  a  specified  number  of explanations  eg  “explain  two  reasons  …”,  mark  the  first  two  correct  answers. This could include two full explanations, one explanation, one partial explanation etc.
+
+
+
+
+
+
+SECTION A       Total: [25 marks]
+
+1.      Award up to [2 marks max].      Roles/activities of the users (eg permissions, security, partitions, collaborative work);
+        Resources (HW and SW equipment) appropriate for the organization;       Costs/budget limits;
+        Delivery time;  Compatibility with the old system (data);
+                (Other acceptable answers are possible, from the economic, operational and technical
+        perspective.)   [2 marks] 
+
+
+
+2.      Award up to [2 marks max]. 
+Testing prior to product’s full release / last stage of testing;
+To see if it works properly / complete functionality / usability;
+Performed by end users (not by designers);      [2 marks]
+
+
+3.      Award up to [4 marks max].      Award [1 mark] for the identification of an advantage and [1 mark] for explaining the
+        advantage.
+        Award [1 mark] for the identification of a disadvantage and [1 mark] for explaining the disadvantage.
+                Example Advantages:
+        Can highlight aspects that are not detected in questionnaires/interviews;       So the observer can help produce more detailed reports;
+                Observations may be more reliable than interviews;
+        Because they can reveal what people actually do instead of what they say they do;
+                Example disadvantages:  Time consuming / expense;
+        The observer might need to observe a complete cycle etc which could last a significant  amount of time;
+                If the observations are made by only one person, they may be biased;
+                Observations may be unreliable;
+        Because people act differently when they know they are being watched.
+                (Accept formulations that express similar or plausible ideas.)          [4 marks]
+
+
+
+
+4.      Award [1 mark] for identifying an issue and [1 mark] for an explanation.
+Size of screen;
+Therefore difficult to see / use (in poor light);
+
+Size of keys;
+Therefore difficult to access functions;
+
+Battery life;
+May need to recharge regularly;
+
+Touch screen keys on tablets etc;
+Lack of tactile feedback;       [2 marks]
+
+
+
+5.      Award up to [2 marks max].   
+Award [1 mark] for identifying two types of primary memory.
+Award [1 mark] for the use of each type of the memory identified ×2.
+RAM stores data and instructions currently in use
+ROM stores permanent instructions
+Cache stores frequently used instructions
+
+(Award [1 mark] if only general scheme of CPU is given.)        [2 marks]
+
+
+
+6.      Award [1 mark] for an example and [1 mark] for reason of use/functionality, up to
+[2 marks max].
+Support  design/layout/development/rapid  prototyping  in  engineering/manufacturing
+/biomechanics/architecture;
+Save time/costs associated to drawing/development;
+
+        Photorealistic  rendering/photo simulation      in      architecture/video      games/visual effects/simulators;
+        eg shading, radiosity, reflection, refraction, illumination for modelling and simulation;       [2 marks]
+        Do not accept software CASE tools.
+        7.              A colour will be split into three components (Accept RGB as an example); Each component will be assigned a certain number of bytes;                     [2 marks]
+
+
+
+8.      Award up to [2 marks max].
+Examples of features:
+No central server;
+Resources are more widely available (storage, bandwidth, computing power);
+Redundancy/recovery;
+Supports file sharing for collaborative work;   [2 marks]
+
+
+
+9.      A unit of data for transmission; With a format;
+Accept answers that expresses the idea that the packet is the fundamental unit of data transmission
+on a network (IP is assumed).
+Accept answers that suggest the student understands there is a format for the packet, including
+“contains address and data”.    [2 marks]
+
+
+
+10.     Award up to [2 marks max] for identifying causes of speed differences.
+Different parts of network use different media; Network congestion;
+Packets may take different routes; The receiver may be busy;
+Physical size of the network;
+
+Award the final [1 mark] for any explanation of a cause may affect the speed
+Fiber is faster than coax;
+Some packets may be delayed by congestion;
+There may be longer transmission times over large distances;    [3 marks]
+
+
+
+11.     Award up to [2 marks max].
+An object hides the details;
+Yet preserves the functionality;
+OR
+Objects combine abstractions of data and code;
+While hiding away implementation of details;    [2 marks] 
+
+
+
+SECTION B       Total: [45 marks]
+
+12.     (a)     (Notation: * is and, + is or, – is not)
+Award [1 mark] for each correct sub-expression in the “+” relation, up to [3 marks max].
+W*H  + W*-S + -W*-H Alternative equivalent solution:
+W*(H+-S)  + -W*-H       [3 marks]
+
+(b)     Award [1 mark] for each correct pair of rows up to [4 marks max].
+Accept correct rows in any order.
+
+W       H       S       T
+0       0       0       1
+0       0       1       1
+0       1       0       0
+0       1       1       0
+1       0       0       1
+1       0       1       0
+1       1       0       1
+1       1       1       1
+
+[4 marks]
+
+(c)     Odd index gives S = 1;  [1 mark]
+
+
+
+
+
+continued …
+
+
+
+Question 12 continued
+
+(d)     Award [1 mark] for correct looping and output;
+Award [1 mark] for testing condition TIRED[INDEX]=1; Award [1 mark] for condition for H;
+Award [1 mark] for condition for W;
+
+loop INDEX from 0 to 7
+if TIRED[INDEX] = 1 then
+if INDEX mod 2 = 1 then
+S=1 else S=0 end if
+if (INDEX div 2) mod 2 = 1 then
+H=1 else H=0 end if
+if INDEX div 4 = 1 then
+W=1 else W=0
+end if  //alternative: INDEX>3 output W, H, S
+end if end loop
+
+Alternative:
+
+loop INDEX from 0 to 7
+if TIRED[INDEX] = 1 then
+TEMP = INDEX //TEMP is a new local var
+S = TEMP mod 2
+TEMP = TEMP div 2
+H = TEMP mod 2
+TEMP = TEMP div 2
+W = TEMP mod 2 output   W, H, S
+end if
+end loop        [4 marks]
+
+
+
+(e)     Award [1 mark] for looping through the collection; Award [1 mark] for getting both name and TIRED array;
+Award [1 mark] for using a variant of TEST that returns values for W and H (explanation expected);
+
+while not end of STUDENT collection get next NAME, get TIRED
+newTest(TIRED)  //it must be able to return values for W and H
+if W = 1 and H = 1 output NAME
+end if end while
+
+Alternative:
+
+loop while STUDENT.hasNext() TEMP = STUDENT.getNext() NAME = Temp.name
+newTest(Temp.tired) //it must be able to return values for W and H
+if W = 1 and H = 1 output name
+end if end while
+
+continued …
+
+
+
+Question 12 continued
+
+Accept answers not pseudocode, for example: For each element in the collection STUDENT; Retrieve both Names and Tired;
+Use a variant of TEST(TIRED) and returns values for W and H to output the corresponding name when both are 1;   [3 marks]
+
+Total: [15 marks]
+
+
+
+
+13.     (a)     Data is in the cloud/computing infrastructure; SW necessary for the activities is in the cloud;
+                Access to SW is with thin client (terminal/computers) by web browsing (on the   extranet);              [3 marks]
+                (b)             Award up to [6 marks max].
+                Security in storage;
+
+Data is stored in the server of the service provider;
+The organization has no direct control of its data;
+Legislation in the country of the provider may be weaker than in the user’s
+country;
+Cases  of  provider’s  corruption/bankruptcy/data  loss  are  a  risk  to  the
+organization;
+
+Security in transmission;
+        Applications running in-site may require data in SaaS; Hence longer transmission times and higher risk of
+        failure/attack/interception;    [6 marks]
+        (c)             Award up to [2 marks max] .
+        An external extension to a company’s local network;     Limited access;
+        Uses internet protocols;        [2 marks]
+        (d)             VPN authenticates the sender before (establishing the tunnel);  VPN access is always encrypted, whereas extranet has limited encryption;
+        VPN transmission is always encrypted;   VPN users have access to everything whereas extranet users only have access to
+        (enabled) specific services;    [4 marks]
+
+
+Total: [15 marks]
+
+
+
+14.     (a)                     (b)     90.2;                   Frequencies less than 100 take a 0 on the left (eg 88.7 becomes 088.7); [1 mark]
+                Convert each digit into a char to get a string;
+                Allow the “dot” to be omitted in the interpretation.   There is always only one decimal in the example.         [2 marks]
+                (c)             Award up to [6 marks max].
+                        Example answer (searches for the min and max, and then the range is calculated)
+                Award [1 mark] for each of the following        Initialization;
+                Loop;   Correct if statement (min);
+                Correct if statement (max);     Compute the range;
+                Output the range;
+                MIN = Radio[0] MAX = Radio[0] K=1       loop while K<=5
+
+if Radio[K]<MIN then
+MIN=Radio[K]
+else if Radio[K]>MAX then
+MAX=Radio[K]
+endif
+K=K+1 endloop RANGE=MAX-MIN output RANGE
+
+Example answer (sorts the array Radio, and then the range is calculated, any sorting algorithm is acceptable)
+Award [1 mark] for each of the following
+Idea of nested loops;
+One correct loop; Correct comparison; Correct exchange; Compute the range; Output the range;
+
+
+loop for        K=0 to 4
+loop for        J=0 to 4
+if Radio[J]> Radio[J+1]
+then
+swap Radio[J]and Radio[J+1]
+endif endloop
+endloop
+RANGE= Radio[5]- Radio[0]
+output RANGE
+
+
+
+
+
+
+
+
+
+
+
+
+
+[6 marks]
+
+continued …
+
+
+
+
+
+
+Question 14 continued
+
+(d)     Upon selection, two new objects are created in the collection one with the name, the other with the frequency / Upon selection, a new object is created containing
+        both name and frequency;
+        Where the name is obtained from the radio station;      [2 marks]
+        (e)             Award [1 mark] for reading input and storing it (in temporary variable);        Award [1 mark] for searching item in the collection that matches the content of
+        temporary variable;     Award [1 mark] for outputting name and frequency;
+        Award [1 mark] for using the methods proper of the collection;
+                //case of two objects   KEY= read(k)    // store selected button in a variable
+
+COLLECTION.resetNext() // COLLECTION given pointer set at start
+loop while COLLECTION.hasNext() ITEM =COLLECTION.getNext() if ITEM=RADIO[KEY] then
+output (ITEM.getFrequency())    // output frequency
+output(ITEM.getName())  // output name endif
+endloop
+
+Accept variants where a single object carrying both name and frequency is stored
+in the collection.      [4 marks]
+
+Total: [15 marks]

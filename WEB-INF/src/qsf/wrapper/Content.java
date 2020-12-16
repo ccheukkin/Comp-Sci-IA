@@ -1,13 +1,13 @@
 package qsf.wrapper;
 
 public class Content {
-    public String author;
+    public int author;
     public String dataType;
     public Object contentObj;
     public int packetID;
     public int questionID;
     
-    public Content(String author, String dataType, Object contentObj, int packetID, int questionID, int ContentID){
+    public Content(int author, String dataType, Object contentObj, int packetID, int questionID){
         this.author = author;
         this.dataType = dataType;
         this.contentObj = contentObj;

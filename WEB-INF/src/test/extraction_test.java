@@ -6,7 +6,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 public class extraction_test{
     public static void main(String[] args)throws Exception {
-        XWPFDocument docx = new XWPFDocument(new FileInputStream("WEB-INF/classes/test/resources/paper.docx"));
+        XWPFDocument docx = new XWPFDocument(new FileInputStream("WEB-INF/classes/test/resources/markscheme.docx"));
       
         XWPFWordExtractor we = new XWPFWordExtractor(docx);
         System.out.println(we.getText());
