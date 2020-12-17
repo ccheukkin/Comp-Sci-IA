@@ -1,1 +1,0 @@
-lib/*:lib/poi/*:lib/poi/lib/*:lib/poi/ooxml-lib/*

@@ -1,2 +1,0 @@
-test/extraction_test.java
-test/respond.java

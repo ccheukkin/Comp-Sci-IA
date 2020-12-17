@@ -1,0 +1,15 @@
+{
+  "name": "qsf",
+  "version": "1.0.0",
+  "description": "Question Sorting Framework",
+  "main": "qsf/api/Interface.js",
+  "scripts": {
+    "start": "node qsf/api/Interface.js"
+  },
+  "author": "Chan Cheuk Kin",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
