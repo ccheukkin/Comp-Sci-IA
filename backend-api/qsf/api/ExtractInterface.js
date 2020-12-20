@@ -1,15 +1,15 @@
-export class ExtractInterface{
+export default class ExtractInterface{
     constructor(extractSub, storeSub){
         this.extractSub = extractSub;
         this.storeSub = storeSub;
     }
     extract(docx, options){
         let resultPackets = this.extractSub.extractFrom(docx, options);
-        let addresses = this.storeSub.store(resultPackets);
-        return addresses;
+        let packetIds = this.storeSub.store(resultPackets);
+        return packetIds;
     }
-    getReview(addresses){
-        this.storeSub.get(addresses);
+    getReview(packetIds){
+        this.storeSub.get(packetIds);
     }
     add(packetId, questionId, content){
         this.storeSub.add(packetId, questionId, content);
