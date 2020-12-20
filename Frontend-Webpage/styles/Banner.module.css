@@ -2,7 +2,42 @@
     width: 100%;
     height: 100vh;
     position: relative;
-    background-attachment: fixed;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     color: rgb(54, 54, 54)
+}
+.logo{
+    height: 200px;
+    width: 200px;
+    background-image: url("../public/logo.png");
+    background-size: contain;
+}
+.big{
+    width: 100%;
+    text-align: center;
+    font-size: 60px;
+    font-weight: 300;
+    font-family: Viga, Roboto, sans-serif;
+}
+.small{
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 100;
+}
+.arrow{
+    width: 50px;
+    height: 50px;
+    background-image: url("../public/downArrow.png");
+    background-size: contain;
+    margin-top: 20px;
+    filter: invert(0.2);
+    transform: scale(1,1);
+    transition: filter 0.2s, transform 0.2s;
+}
+.arrow:hover{
+    filter: invert(0.5);
+    transform: scale(1.1,1.1);
 }

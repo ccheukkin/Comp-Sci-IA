@@ -5,10 +5,10 @@ class Banner extends React.Component{
     render(){
         return(
             <div className={style.bannerBox}>
-                <div class="container"><div class="logoBig"></div></div>
-                <div class="big">Questions Sorter</div>
-                <div class="small">Scroll down to know what you can do in this website</div>
-                <div class="container"><a href="#jump"><div class="arrow"></div></a></div>
+                <div className={style.logo}></div>
+                <div className={style.big}>Questions Sorter</div>
+                <div className={style.small}>Scroll down to know what you can do in this website</div>
+                <a href="#jump"><div className={style.arrow}></div></a>
             </div>
         );
     }
