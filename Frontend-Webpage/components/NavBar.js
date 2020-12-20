@@ -1,23 +1,17 @@
 import React from 'react'
 import style from "../styles/NavBar.module.css"
+import Link from 'next/link'
 
 class NavBar extends React.Component{
-    constructor(props){
-        super(props);
-        this.href = this.href.bind(this);
-    }
-    href(name){
-        alert(name);
-    }
     render(){
         return(
         <div className={style.main}>
             <div className={style.logo}></div>
             <div className={style.logoWords}>Questions Sorter</div>
-            <NavBarButtons name="Home" onClick={this.href}/>
-            <NavBarButtons name="Upload" onClick={this.href}/>
-            <NavBarButtons name="Review" onClick={this.href}/>
-            <NavBarButtons name="Search" onClick={this.href}/>
+            <Link href="/"><a className={style.link}><NavBarButtons name="Home"/></a></Link>
+            <Link href="/upload"><a className={style.link}><NavBarButtons name="Upload"/></a></Link>
+            <a className={style.link}><NavBarButtons name="Review"/></a>
+            <a className={style.link}><NavBarButtons name="Search"/></a>
         </div>
         );
     }
@@ -45,7 +39,6 @@ class NavBarButtons extends React.Component{
     render(){
         return(
             <button className={style.button}
-            onClick={()=>{this.props.onClick(this.props.name)}}
             onMouseEnter={this.handleEnter}
             onMouseLeave={this.handleLeave}>
                 {this.props.name}

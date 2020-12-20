@@ -3,10 +3,12 @@ import ExtractInterface from "./ExtractInterface.js";
 import DefaultExtract from "../extracting/DefaultExtract.js"
 import bodyParser from "body-parser";
 import fileUpload from "express-fileupload";
+import cors from "cors";
 
 const extract = new ExtractInterface(DefaultExtract);
 
 const app = express();
+app.use(cors());
 app.use(fileUpload({
   createParentPath: true
 }));
@@ -31,7 +33,16 @@ app.get("/", (req, res) => {
 app.post("/upload", (req, res) => {
   let docx = req.files.docx;
   docx.mv(docx.name);
-  res.send("Received");
+  res.send({
+    status: true,
+    message: 'File is uploaded',
+    data: {
+      a: 1,
+      b: {
+        b1: 1, b2: [2, 2, 2]
+      }
+    }
+});
 })
 
 app.listen(4915, () =>
