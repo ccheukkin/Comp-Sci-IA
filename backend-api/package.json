@@ -4,7 +4,7 @@
   "description": "Question Sorting Framework",
   "main": "qsf/api/Interface.js",
   "scripts": {
-    "start": "node qsf/api/Interface.js"
+    "start": "node src/api/Interface.js"
   },
   "author": "Chan Cheuk Kin",
   "license": "MIT",
@@ -12,6 +12,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-fileupload": "^1.2.0"
+    "express-fileupload": "^1.2.0",
+    "mammoth": "^1.4.14"
   }
 }

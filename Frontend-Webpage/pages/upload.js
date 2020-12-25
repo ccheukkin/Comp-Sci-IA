@@ -1,18 +1,18 @@
 import { render } from "react-dom";
 import NavBar from "../components/NavBar.js"
-import UploadFile from "../components/UploadFile.js"
+import Extract from "../components/Extract.js"
 
 const uploaded = (res) => {
     console.log(res.data);
 }
 
-const Upload = () => {
+const UploadPage = () => {
     return(
         <div>
             <NavBar />
-            <UploadFile uploaded={uploaded}/>
+            <Extract uploaded={uploaded}/>
         </div>
     );
 }
 
-export default Upload;
+export default UploadPage;
