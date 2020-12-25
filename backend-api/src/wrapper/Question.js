@@ -1,10 +1,10 @@
 export default class Question{
-    constructor(id){
+    constructor(id, contents){
         this.id = id;
-        this.contents = [];
+        this.contents = contents;
     }
     push(content){
         this.contents.push(content);
     }
-    
+
 }

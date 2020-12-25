@@ -1,5 +1,7 @@
 import fs from "fs";
 import Content from "../wrapper/Content.js";
+import Question from "../wrapper/Question.js";
+import Packet from "../wrapper/Packet.js";
 
 export default class LocalFileStore{
     rootDir() { return "./storage"; }
@@ -17,7 +19,7 @@ export default class LocalFileStore{
         fs.writeFileSync(indexFile, curIndex+1);
         return curIndex+1;
     }
-    getDocDir(docId){
+    getDocDir(docId) {
         let docDir = `${this.rootDir()}/${docId}`;
         if (!fs.existsSync(docDir)){
             fs.mkdirSync(docDir);
@@ -50,8 +52,7 @@ export default class LocalFileStore{
             let contentInfo = this.storeContents(question.contents, dir);
             let infoFile = `${dir}/.info`;
             if (fs.existsSync(infoFile)){
-                let mergedQuestion = JSON.parse(fs.readFileSync(infoFile)).merge(contentInfo);
-                fs.writeFileSync(infoFile, JSON.stringify(mergedQuestion));
+                contentInfo = contentInfo.concat(JSON.parse(fs.readFileSync(infoFile)));
             }
             fs.writeFileSync(infoFile, JSON.stringify(contentInfo));
         }
@@ -60,19 +61,24 @@ export default class LocalFileStore{
         let promiseContents = [];
         for (let i = 0; i < contents.length; i++){
             let content = JSON.parse(JSON.stringify(contents[i]));
+            let qna = content.answer? "a" : "q";
+            let dir = `${root}/${qna}`;
+            if (!fs.existsSync(dir)){
+                fs.mkdirSync(dir);
+            }
             switch(content.type){
                 case "text":
                 case "code":
                     break;
                 case "image":
-                    fs.writeFileSync(`${root}/${content.id}.jpg`, content.object, "base64");
+                    fs.writeFileSync(`${dir}/${content.id}.jpg`, content.object, "base64");
                     content.type = "url";
-                    content.object = `${root}/${content.id}.jpg`;
+                    content.object = `${dir}/${content.id}.jpg`;
                     break;
                 case "table":
-                    fs.writeFileSync(`${root}/${content.id}.json`, JSON.stringify(content.object));
+                    fs.writeFileSync(`${dir}/${content.id}.json`, JSON.stringify(content.object));
                     content.type = "url";
-                    content.object = `${root}/${content.id}.json`;
+                    content.object = `${dir}/${content.id}.json`;
                     break;
             }
             promiseContents.push(content);
@@ -81,30 +87,36 @@ export default class LocalFileStore{
     }
 
     // Reading
-    get(docId, packetIds) {
+    get(docId) {
         let packets = [];
-        for (let i = 0; i < packetIds.length; i++){
-            let dir = `${this.rootDir()}/${docId}/${packetIds[i]}`;
-            let questions = this.getQuestions(dir);
-            packets.push(new Packet(questions, packetIds[i]));
-        }
+        let dir = this.getDocDir(docId);
+        fs.readdirSync(dir).forEach(file => {
+            let id = parseInt(file);
+            if (id == 0 || id){
+                let dir = `${this.rootDir()}/${docId}/${id}`;
+                let questions = this.getQuestions(dir);
+                packets.push(new Packet(id, questions));
+            }
+        });
         return packets;
     }
     getQuestions(root){
         let questions = [];
-        let packetDir = fs.readdirSync(root);
-        for (let i = 0; i < packetDir.length; i++){
-            let dir = `${dir}/${packetDir[i]}`;
-            let contents = this.getContents(dir);
-            questions.push(new Question(contents, packetDir[i]));
-        }
+        fs.readdirSync(root).forEach(file => {
+            let id = parseInt(file);
+            if (id == 0 || id){
+                let dir = `${root}/${file}`;
+                let contents = this.getContents(dir);
+                questions.push(new Question(file, contents));
+            }
+        });
         return questions;
     }
     getContents(root){
         let contents = [];
-        let questionInfo = JSON.parse(fs.readdirSync(`${root}/.info`));
-        for (let i = 0; i < questionInfo.contents.length; i++){
-            let contentInfo = questionInfo.contents[i];
+        let questionInfo = JSON.parse(fs.readFileSync(`${root}/.info`));
+        for (let i = 0; i < questionInfo.length; i++){
+            let contentInfo = questionInfo[i];
             contents.push(new Content(contentInfo));
         }
         return contents;

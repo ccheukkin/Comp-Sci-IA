@@ -1,7 +1,7 @@
 export default class Packet{
-    constructor(id){
+    constructor(id, questions){
         this.id = id;
-        this.questions = [];
+        this.questions = questions;
     }
     push(question){
         this.questions.push(question);

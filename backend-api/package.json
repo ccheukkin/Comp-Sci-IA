@@ -1,8 +1,8 @@
 {
-  "name": "qsf",
+  "name": "quesort-api",
   "version": "1.0.0",
-  "description": "Question Sorting Framework",
-  "main": "qsf/api/Interface.js",
+  "description": "QueSort Backend API",
+  "main": "src/api/Interface.js",
   "scripts": {
     "start": "node src/api/Interface.js"
   },

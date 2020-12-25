@@ -13,8 +13,8 @@ export default class ExtractInterface{
         let resultPackets = await this.extractSub.extractFrom(docDir, options);
         this.storeSub.store(resultPackets, docId);
     }
-    async getReview(docTd){
-        this.storeSub.get(docId);
+    async getReview(docId){
+        return await this.storeSub.get(docId);
         // return await new Promise((res, rej)=>{setTimeout(()=>{
         //     res({packet: [1,2,3]})});
         // }, 2000);

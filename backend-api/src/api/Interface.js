@@ -17,7 +17,7 @@ app.use(fileUpload({
 
 app.post("/upload", (req, res) => {
   let docx = req.files.docx;
-  let docId = req.query.docId ? req.query.docId : extract.getDocId();
+  let docId = parseInt(req.query.docId) ? parseInt(req.query.docId) : extract.getDocId();
   let docDir = `${extract.getDocDir(docId)}/${docx.name}`;
   docx.mv(docDir);
   let isAnswer = parseInt(req.query.answer) ? true : false;
@@ -29,8 +29,8 @@ app.post("/upload", (req, res) => {
   });
 })
 
-app.get("/doc", async (req, res) => {
-  let packets = await extract.getReview(req.query.id);
+app.get("/review", async (req, res) => {
+  let packets = await extract.getReview(parseInt(req.query.docId));
   res.send(packets);
 });
 

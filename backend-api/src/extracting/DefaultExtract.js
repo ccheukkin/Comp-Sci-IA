@@ -21,9 +21,9 @@ export default class DefaultExtract{
             let question = matches[i][2];
             let packetId = matches[i][1];
             let newContent = new Content({id: 0, type: "text", answer: options.answer, object: question});
-            let newQuestion = new Question(0);
+            let newQuestion = new Question(0, []);
             newQuestion.push(newContent);
-            let newPacket = new Packet(packetId);
+            let newPacket = new Packet(packetId, []);
             newPacket.push(newQuestion);
             packets.push(newPacket);
         }
