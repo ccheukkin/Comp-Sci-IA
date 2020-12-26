@@ -1,33 +1,30 @@
 export default class ExtractInterface{
-    constructor(extractSub, storeSub){
-        this.extractSub = extractSub;
-        this.storeSub = storeSub;
+    constructor(extractClass, storeClass){
+        this.extractClass = extractClass;
+        this.storeClass = storeClass;
     }
     getDocId(){
-        return this.storeSub.getDocId();
+        return this.storeClass.getDocId();
     }
     getDocDir(docId){
-        return this.storeSub.getDocDir(docId);
+        return this.storeClass.getDocDir(docId);
     }
     async extract(docDir, docId, options){
-        let resultPackets = await this.extractSub.extractFrom(docDir, options);
-        this.storeSub.store(resultPackets, docId);
+        let resultPackets = await this.extractClass.extractFrom(docDir, options);
+        this.storeClass.store(resultPackets, docId);
     }
     async getReview(docId){
-        return await this.storeSub.get(docId);
-        // return await new Promise((res, rej)=>{setTimeout(()=>{
-        //     res({packet: [1,2,3]})});
-        // }, 2000);
+        return await this.storeClass.get(docId);
     }
-    add(packetId, questionId, content){
-        this.storeSub.add(packetId, questionId, content);
+    async add(packetId, questionId, content){
+        this.storeClass.add(packetId, questionId, content);
     }
-    delete(packetId, questionId, contentId){
-        this.storeSub.delete(packetId, questionId, contentId);
+    async delete(packetId, questionId, contentId){
+        this.storeClass.delete(packetId, questionId, contentId);
     }
-    modify(addresses, options){
-        let packets = this.storeSub.get(addresses);
-        let modifiedPackets = this.extractSub.modify(packets, options)
-        this.storeSub.store(modifiedPackets);
+    async modify(addresses, options){
+        let packets = this.storeClass.get(addresses);
+        let modifiedPackets = this.extractClass.modify(packets, options)
+        this.storeClass.store(modifiedPackets);
     }
 }

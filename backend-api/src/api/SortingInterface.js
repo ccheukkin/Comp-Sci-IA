@@ -1,7 +1,14 @@
 export default class SortingInterface{
-    constructor(sortSub, storeSub){
-        this.sortSub = sortSub;
-        this.storeSub = storeSub;
+    constructor(sortClass, storeClass){
+        this.sortClass = sortClass;
+        this.storeClass = storeClass;
     }
-    
+    async sort(docId){
+        let packets = await this.getReview(docId);
+        packets = await this.sortClass.sort(packets);
+        this.storeClass.store(packets, docId);
+    }
+    async getReview(docId){
+        return await this.storeClass.get(docId);
+    }
 }

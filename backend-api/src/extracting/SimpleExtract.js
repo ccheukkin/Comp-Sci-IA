@@ -3,7 +3,7 @@ import Packet from "../wrapper/Packet.js"
 import Question from "../wrapper/Question.js"
 import Content from "../wrapper/Content.js"
 
-export default class DefaultExtract{
+export default class SimpleExtract{
     /*
         ==OPTIONS SCHEMA==
             answer: boolean

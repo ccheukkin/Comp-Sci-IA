@@ -123,13 +123,21 @@ export default class LocalFileStore{
     }
 
     // Rewriting
-    add(packetId, questionId, content) {
+    add(docId, packetId, questionId, contents) {
+        let dir = `${getDocDir(docId)}/${packetId}/${questionId}`;
+        let infoFile = `${dir}/.info`;
+        if (fs.existsSync(infoFile)){
+            contentInfo = this.storeContents(contents, dir);
+            contentInfo = contentInfo.concat(JSON.parse(fs.readFileSync(infoFile)));
+            fs.writeFileSync(infoFile, JSON.stringify(contentInfo));
+            return true;
+        }
+        return false;
+    }
+    delete(docId, packetId, questionId, contentId) {
 
     }
-    delete(packetId, questionId, contentId) {
-
-    }
-    modify(packetId, questionId, contentId, options) {
+    modify(docId, packetId, questionId, contentId, options) {
 
     }
 }
