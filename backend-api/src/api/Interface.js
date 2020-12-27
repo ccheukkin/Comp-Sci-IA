@@ -1,29 +1,29 @@
 import express from "express";
 import ExtractInterface from "./ExtractInterface.js";
-import SortingInterface from "./SortingInterface.js";
-import SimpleExtract from "../extracting/SimpleExtract.js";
-import KeywordSort from "../sorting/KeywordSort.js";
-import LocalFileStore from "../storing/LocalFileStore.js";
+import CategorizeInterface from "./CategorizeInterface.js";
+import SimpleExtract from "../extraction/SimpleExtract.js";
+import KeywordCategorize from "../categorizing/KeywordCategorize.js";
+import LocalFileStore from "../storage/LocalFileStore.js";
 import fileUpload from "express-fileupload";
 import bodyParser from "body-parser";
 import cors from "cors";
 
 const extract = new ExtractInterface(new SimpleExtract(), new LocalFileStore());
-const sort = new SortingInterface(new KeywordSort(), new LocalFileStore());
+const categorize = new CategorizeInterface(new KeywordCategorize(), new LocalFileStore());
 
 const app = express();
 app.use(cors());
 app.use(fileUpload({
   createParentPath: true
 }));
-app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.post("/api/extract/upload", (req, res) => {
-  let docx = req.files.docx;
+  let doc = req.files.doc;
   let docId = parseInt(req.query.docId) ? parseInt(req.query.docId) : extract.getDocId();
-  let docDir = `${extract.getDocDir(docId)}/${docx.name}`;
-  docx.mv(docDir);
+  let docDir = `${extract.getDocDir(docId)}/${doc.name}`;
+  doc.mv(docDir);
   let isAnswer = parseInt(req.query.answer) ? true : false;
   extract.extract(docDir, docId, {answer: isAnswer});
   res.send({docId});
@@ -31,25 +31,25 @@ app.post("/api/extract/upload", (req, res) => {
 
 app.get("/api/extract/review", async (req, res) => {
   let packets = await extract.getReview(parseInt(req.query.docId));
-  res.send(packets);
+  res.send({packets});
 });
 
-app.post("/api/extract/add", (req, res) => {
-  console.log(req.body);
+app.post("/api/extract/set", async (req, res) => {
+  // let status = await extract.setContent()
 });
 
 app.get("/api/extract/done", (req, res) => {
-  sort.sort(req.query.docId);
-
+  categorize.categorize(req.query.docId);
+  res.send("OK");
 });
 
-app.get("/api/sort/review", async (req, res) => {
-  let packets = await sort.getReview(parseInt(req.query.docId));
+app.get("/api/categorize/review", async (req, res) => {
+  let packets = await categorize.getReview(parseInt(req.query.docId));
   res.send(packets);
 });
 
-app.post("/api/sort/modify", (req, res) => {
-  console.log(req.body);
+app.post("/api/categorize/set", (req, res) => {
+  console.log(JSON.parse(req.body.categories));
 });
 
 // app.get("/packets", async (req, res) => {

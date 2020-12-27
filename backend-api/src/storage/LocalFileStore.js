@@ -4,7 +4,7 @@ import Question from "../wrapper/Question.js";
 import Packet from "../wrapper/Packet.js";
 
 export default class LocalFileStore{
-    rootDir() { return "./storage"; }
+    rootDir() { return "./local-storage"; }
     getDocId() {
         let indexFile = this.rootDir()+"/.index";
         if (!fs.existsSync(indexFile)){

@@ -1,4 +1,4 @@
-# QueSort
-For sorting IB past paper questions
+# QueCat
+For categorizing IB past paper questions
 
-documentation: [https://ccheukkin.gitbook.io/question-sorting-framework/](https://ccheukkin.gitbook.io/question-sorting-framework/)
+documentation: [https://ccheukkin.gitbook.io/quecat-docs/](https://ccheukkin.gitbook.io/quecat-docs/)

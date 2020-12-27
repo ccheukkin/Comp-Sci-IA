@@ -10,7 +10,7 @@ export default class ExtractInterface{
         return this.storeClass.getDocDir(docId);
     }
     async extract(docDir, docId, options){
-        let resultPackets = await this.extractClass.extractFrom(docDir, options);
+        let resultPackets = await this.extractClass.extract(docDir, options);
         this.storeClass.store(resultPackets, docId);
     }
     async getReview(docId){

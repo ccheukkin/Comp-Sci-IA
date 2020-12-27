@@ -3,12 +3,12 @@ import Packet from "../wrapper/Packet.js"
 import Question from "../wrapper/Question.js"
 import Content from "../wrapper/Content.js"
 
-export default class SimpleExtract{
+class SimpleExtract{
     /*
         ==OPTIONS SCHEMA==
-            answer: boolean
+        answer: boolean
     */
-    async extractFrom(docDir, options){
+    async extract(docDir, options){
         let packets = [];
         let html = (await mammoth.extractRawText({path: docDir})).value;
         let sectionA = options.answer ? /section\s*a\s*total/i : /section\s*a\s*answer/i;
@@ -29,7 +29,5 @@ export default class SimpleExtract{
         }
         return packets;
     }
-    modify(packets, options){
-
-    }
 }
+export default SimpleExtract;

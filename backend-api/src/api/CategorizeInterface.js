@@ -1,11 +1,11 @@
-export default class SortingInterface{
-    constructor(sortClass, storeClass){
-        this.sortClass = sortClass;
+export default class CategorizeInterface{
+    constructor(categorizeClass, storeClass){
+        this.categorizeClass = categorizeClass;
         this.storeClass = storeClass;
     }
-    async sort(docId){
+    async categorize(docId){
         let packets = await this.getReview(docId);
-        packets = await this.sortClass.sort(packets);
+        packets = await this.categorizeClass.categorize(packets);
         this.storeClass.store(packets, docId);
     }
     async getReview(docId){
