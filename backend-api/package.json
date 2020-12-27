@@ -1,7 +1,7 @@
 {
-  "name": "quesort-api",
+  "name": "quecat-api",
   "version": "1.0.0",
-  "description": "QueSort Backend API",
+  "description": "QueCat Backend API",
   "main": "src/api/Interface.js",
   "scripts": {
     "start": "node src/api/Interface.js"

@@ -35,7 +35,8 @@ app.get("/api/extract/review", async (req, res) => {
 });
 
 app.post("/api/extract/set", async (req, res) => {
-  // let status = await extract.setContent()
+  let status = await extract.setContent(req.query, req.body.object, req.files.object);
+  res.send(status);
 });
 
 app.get("/api/extract/done", (req, res) => {
@@ -50,6 +51,7 @@ app.get("/api/categorize/review", async (req, res) => {
 
 app.post("/api/categorize/set", (req, res) => {
   console.log(JSON.parse(req.body.categories));
+  res.send("OK");
 });
 
 // app.get("/packets", async (req, res) => {

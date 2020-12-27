@@ -16,15 +16,9 @@ export default class ExtractInterface{
     async getReview(docId){
         return await this.storeClass.get(docId);
     }
-    async add(packetId, questionId, content){
-        this.storeClass.add(packetId, questionId, content);
-    }
-    async delete(packetId, questionId, contentId){
-        this.storeClass.delete(packetId, questionId, contentId);
-    }
-    async modify(addresses, options){
-        let packets = this.storeClass.get(addresses);
-        let modifiedPackets = this.extractClass.modify(packets, options)
-        this.storeClass.store(modifiedPackets);
+    async setContent(query, object, file){
+        let realObject = query.type == "image" ? file : object;
+        let succeed = await this.storeClass.setContent(query.docId, query.packetId, query.questionId, query.contentId, query.type, query.answer, query.createParent, query.replace, realObject);
+        return succeed ? "Succeed" : "Failed";
     }
 }

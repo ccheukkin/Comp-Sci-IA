@@ -31,7 +31,7 @@ class KeywordCategorize{
                 }
             }
         }
-        return new Question(question.id, question.contents, categories);
+        return new Question(question.id, JSON.parse(JSON.stringify(question.contents)), categories);
     }
 }
 export default KeywordCategorize;
