@@ -9,6 +9,6 @@ export default class CategorizeInterface{
         this.storeClass.storePacketsCategories(packets, docId);
     }
     async getReview(docId){
-        return await this.storeClass.get(docId);
+        return await this.storeClass.getCategorized(docId);
     }
 }
