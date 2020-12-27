@@ -1,4 +1,5 @@
 # QueCat
+![Banner](README-resource/banner.png)
 For categorizing IB past paper questions
 
-documentation: [https://ccheukkin.gitbook.io/quecat-docs/](https://ccheukkin.gitbook.io/quecat-docs/)
+Documentation: [https://ccheukkin.gitbook.io/quecat-docs/](https://ccheukkin.gitbook.io/quecat-docs/)
