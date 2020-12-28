@@ -1,6 +1,6 @@
 export default class Packet{
-    constructor(id, questions){
-        this.id = id;
+    constructor(address, questions){
+        this.address = address;
         this.questions = questions;
     }
     push(question){

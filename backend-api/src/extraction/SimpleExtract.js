@@ -2,13 +2,14 @@ import mammoth from "mammoth"
 import Packet from "../wrapper/Packet.js"
 import Question from "../wrapper/Question.js"
 import Content from "../wrapper/Content.js"
+import Address from "../wrapper/Address.js";
 
 class SimpleExtract{
     /*
         ==OPTIONS SCHEMA==
         answer: boolean
     */
-    async extract(docDir, options){
+    async extract(docId, docDir, options){
         let packets = [];
         let html = (await mammoth.extractRawText({path: docDir})).value;
         let sectionA = options.answer ? /section\s*a\s*total/i : /section\s*a\s*answer/i;
@@ -20,10 +21,12 @@ class SimpleExtract{
         for (let i = 0; i < matches.length; i++){
             let question = matches[i][2];
             let packetId = matches[i][1];
-            let newContent = new Content({id: 0, type: "text", answer: options.answer, object: question});
-            let newQuestion = new Question(0, []);
+            let questionId = 0;
+            let contentId = 0;
+            let newContent = new Content(new Address(docId, packetId, questionId, contentId, options.answer), "text", question);
+            let newQuestion = new Question(new Address(docId, packetId, questionId), []);
             newQuestion.push(newContent);
-            let newPacket = new Packet(packetId, []);
+            let newPacket = new Packet(new Address(docId, packetId), []);
             newPacket.push(newQuestion);
             packets.push(newPacket);
         }

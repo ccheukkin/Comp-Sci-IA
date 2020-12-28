@@ -1,6 +1,6 @@
 export default class Question{
-    constructor(id, contents, categories){
-        this.id = id;
+    constructor(address, contents, categories){
+        this.address = address;
         this.contents = contents;
         this.categories = categories;
     }

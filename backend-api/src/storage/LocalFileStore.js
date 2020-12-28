@@ -2,7 +2,7 @@ import fs from "fs";
 import Content from "../wrapper/Content.js";
 import Question from "../wrapper/Question.js";
 import Packet from "../wrapper/Packet.js";
-import QuestionAddress from "../wrapper/QuestionAddress.js";
+import QuestionAddress from "../wrapper/Address.js";
 
 export default class LocalFileStore{
     // create and get a new unique document id
@@ -24,8 +24,9 @@ export default class LocalFileStore{
         return curIndex+1;
     }
     // get the base directory for a document id
+    rootDir() {return "./local-storage";}
     getDocDir(docId) {
-        let docDir = `./local-storage/${docId}`;
+        let docDir = `${this.rootDir()}/${docId}`;
         if (!fs.existsSync(docDir)){
             fs.mkdirSync(docDir);
         }
@@ -38,7 +39,7 @@ export default class LocalFileStore{
         let docDir = this.getDocDir(docId);
         for (let i = 0; i < packets.length; i++){
             let packet = packets[i];
-            let dir = `${docDir}/${packet.id}`;
+            let dir = `${docDir}/${packet.address.packetId}`;
             if (!fs.existsSync(dir)){
                 fs.mkdirSync(dir);
             }
@@ -50,7 +51,7 @@ export default class LocalFileStore{
     storeQuestionExtractions(questions, root){
         for (let i = 0; i < questions.length; i++){
             let question = questions[i];
-            let dir = `${root}/${question.id}`;
+            let dir = `${root}/${question.address.packetId}`;
             if (!fs.existsSync(dir)){
                 fs.mkdirSync(dir);
             }
@@ -73,7 +74,7 @@ export default class LocalFileStore{
     }
     // store a single non-text content
     storeContentExtraction(content, root){
-        let qna = content.answer? "a" : "q";
+        let qna = content.address.answer? "a" : "q";
         let dir = `${root}/${qna}`;
         if (!fs.existsSync(dir)){
             fs.mkdirSync(dir);
@@ -83,14 +84,14 @@ export default class LocalFileStore{
             case "code":
                 break;
             case "image":
-                fs.writeFileSync(`${dir}/${content.id}.jpg`, content.object, "base64");
+                fs.writeFileSync(`${dir}/${content.address.contentId}.jpg`, content.object, "base64");
                 content.type = "url";
-                content.object = `${dir}/${content.id}.jpg`;
+                content.object = `${dir}/${content.address.contentId}.jpg`;
                 break;
             case "table":
-                fs.writeFileSync(`${dir}/${content.id}.json`, JSON.stringify(content.object));
+                fs.writeFileSync(`${dir}/${content.address.contentId}.json`, JSON.stringify(content.object));
                 content.type = "url";
-                content.object = `${dir}/${content.id}.json`;
+                content.object = `${dir}/${content.address.contentId}.json`;
                 break;
         }
     }
@@ -104,14 +105,14 @@ export default class LocalFileStore{
     }
     mergeInfo(info, content, root){
         let infoRemoved = JSON.parse(JSON.stringify(info));
-        this.deleteInfo(infoRemoved, content.id, content.answer, root);
+        this.deleteInfo(infoRemoved, content.address.contentId, content.address.answer, root);
         infoRemoved.push(content);
         return infoRemoved;
     }
     deleteInfo(info, contentId, answer, root){
         for (let i = 0; i < info.length; i++){
             let curContent = info[i];
-            if (curContent.id == contentId && curContent.answer == answer){
+            if (curContent.address.contentId == contentId && curContent.answer == answer){
                 info.splice(i, 1)
                 this.deleteContent(contentId, answer, root);
                 i--
@@ -149,7 +150,7 @@ export default class LocalFileStore{
     storePacketsCategories(packets, docId){
         for (let i = 0; i < packets.length; i++){
             let packet = packets[i];
-            let dir = `${getDocDir(docId)}/${packet.id}`;
+            let dir = `${getDocDir(docId)}/${packet.address.packetId}`;
             this.storeQuestionsCategories(packet.questions, dir);
         }
     }
@@ -157,7 +158,7 @@ export default class LocalFileStore{
     storeQuestionsCategories(questions, root){
         for (let i = 0; i < questions.length; i++){
             let question = questions[i];
-            let dir = `${root}/${question.id}`
+            let dir = `${root}/${question.address.questionId}`
             this.setCategories(dir, question.categories);
         }
     }
@@ -205,8 +206,42 @@ export default class LocalFileStore{
         let questionInfo = JSON.parse(fs.readFileSync(`${root}/.info`));
         for (let i = 0; i < questionInfo.length; i++){
             let contentInfo = questionInfo[i];
-            contents.push(new Content(contentInfo));
+            contents.push(new Content(contentInfo.address, contentInfo.type, contentInfo.object));
         }
         return contents;
+    }
+
+    //QUERYING
+    query(options){
+        let returnQuestions = [];
+        fs.readdirSync(this.rootDir()).forEach(file=>{
+            let docId = parseInt(file);
+            if (docId){
+                let packets = this.getPackets(docId);
+                let addQuestions = this.searchPackets(packets, options.categories, options.andMode);
+                returnQuestions = returnQuestions.concat(addQuestions);
+            }
+        });
+        return returnQuestions;
+    }
+    searchPackets(packets, categories, andMode){
+        let returnQuestions = [];
+        for (let i = 0; i < packets.length; i++){
+            let addQuestions = this.searchQuestions(packets[i].questions, categories, andMode);
+            returnQuestions = returnQuestions.concat(addQuestions);
+        }
+        return returnQuestions;
+    }
+    searchQuestions(questions, categories, andMode){
+        let returnQuestions = [];
+        for (let i = 0; i < questions.length; i++){
+            if (this.matchQuestion(questions[i], categories, andMode)){
+                returnQuestions.push(questions[i]);
+            }
+        }
+        return returnQuestions;
+    }
+    matchQuestion(question, categories, andMode){
+    
     }
 }

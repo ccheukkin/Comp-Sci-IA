@@ -6,10 +6,9 @@ metaData:
 - object 
 */
 export default class Content{
-    constructor(info){
-        this.id = info.id;
-        this.type = info.type;
-        this.answer = info.answer;
-        this.object = info.object;
+    constructor(address, type, object){
+        this.address = address;
+        this.type = type;
+        this.object = object;
     }
 }

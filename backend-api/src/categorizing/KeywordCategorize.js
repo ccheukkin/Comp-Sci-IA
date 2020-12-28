@@ -17,7 +17,7 @@ class KeywordCategorize{
         for (let i = 0; i < packet.questions.length; i++){
             returnQuestions.push(this.categorizeQuestion(packet.questions[i]));
         }
-        return new Packet(packet.id, returnQuestions);
+        return new Packet(packet.address, returnQuestions);
     }
     categorizeQuestion(question){
         let categories = [];
@@ -31,7 +31,7 @@ class KeywordCategorize{
                 }
             }
         }
-        return new Question(question.id, JSON.parse(JSON.stringify(question.contents)), categories);
+        return new Question(question.address, JSON.parse(JSON.stringify(question.contents)), categories);
     }
 }
 export default KeywordCategorize;
