@@ -42,9 +42,8 @@ export default class LocalFileStore{
             if (!fs.existsSync(dir)){
                 fs.mkdirSync(dir);
             }
-            this.storeQuestions(packet.questions, dir);
+            this.storeQuestionExtractions(packet.questions, dir);
         }
-        return packetIds;
     }
     // store extracted questions
     storeQuestionExtractions(questions, root){
@@ -58,7 +57,7 @@ export default class LocalFileStore{
             let infoFile = `${dir}/info.json`;
             if (fs.existsSync(infoFile)){
                 let oldContentList = JSON.parse(fs.readFileSync(infoFile));
-                contentInfo = mergeInfoMulti(oldContentList, contentInfo, dir);
+                contentInfo = this.mergeInfoMulti(oldContentList, contentInfo, dir);
             }
             fs.writeFileSync(infoFile, JSON.stringify(contentInfo));
         }
@@ -136,7 +135,7 @@ export default class LocalFileStore{
             fs.mkdirSync(dir, {recursive: true});
         }
         let promiseContent = this.storeContentExtractions([content], dir);
-        let infoFile = `${dir}/.info`;
+        let infoFile = `${dir}/info.json`;
         if (fs.existsSync(infoFile)){
             let contentInfo = JSON.parse(fs.readFileSync(infoFile));
             promiseContent = this.mergeInfoMulti(contentInfo, promiseContent)
@@ -201,7 +200,7 @@ export default class LocalFileStore{
     }
     getContents(root){
         let contents = [];
-        let questionInfo = JSON.parse(fs.readFileSync(`${root}/.info`));
+        let questionInfo = JSON.parse(fs.readFileSync(`${root}/info.json`));
         for (let i = 0; i < questionInfo.length; i++){
             let contentInfo = questionInfo[i];
             contents.push(new Content(contentInfo.address, contentInfo.type, contentInfo.object));

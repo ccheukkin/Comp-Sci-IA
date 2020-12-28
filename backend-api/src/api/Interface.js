@@ -21,11 +21,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.post("/api/extract/upload", (req, res) => {
   let doc = req.files.doc;
-  let docId = parseInt(req.query.docId) ? parseInt(req.query.docId) : extract.getDocId();
+  let tryParse = parseInt(req.query.docId);
+  let docId = tryParse == 0 || tryParse ? tryParse : extract.getDocId();
   let docDir = `${extract.getDocDir(docId)}/${doc.name}`;
-  doc.mv(docDir);
   let isAnswer = parseInt(req.query.answer) ? true : false;
-  extract.extract(docDir, docId, {answer: isAnswer});
+  doc.mv(docDir);
+  extract.extract(docId, docDir, {answer: isAnswer});
   res.send({docId});
 })
 

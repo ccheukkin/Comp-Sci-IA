@@ -38,21 +38,22 @@ class ExtractManager extends React.Component{
         if (packets && confirm("Confirm?")){
             this.loading();
             let docId = await this.sendFiles(state);
-            state.packets = await getPackets(docId);
+            state.packets = await this.getPackets(docId);
         }
         this.setState(state);
     }
     async sendFiles(state){
         let questionForm = new FormData();
         let answerForm = new FormData();
-        questionForm.append("docx", state.q);
-        answerForm.append("docx", state.a);
+        questionForm.append("doc", state.q);
+        answerForm.append("doc", state.a);
         let url = "http://localhost:4915/api/extract/upload";
         let res = await fetch(`${url}?answer=0`,{
             method: "POST",
             body: questionForm
         });
-        let docId = await res.json().docId;
+        let resJson = await res.json();
+        let docId = resJson.docId;
         await fetch(`${url}?answer=1&docId=${docId}`,{
             method: "POST",
             body: answerForm
@@ -98,6 +99,7 @@ class DisplayExtract extends React.Component{
         super(props);
     }
     render(){
+        console.log(this.props.packets);
         return(
             <div>
                 <h1>Sent</h1>
