@@ -1,5 +1,7 @@
 import React from 'react'
-import style from "../styles/UploadFile.module.css"
+import uploadStyle from "../styles/UploadFile.module.css"
+import extractStyle from "../styles/DisplayExtract.module.css"
+import querystring from "querystring"
 
 class ExtractManager extends React.Component{
     constructor(props){
@@ -7,10 +9,11 @@ class ExtractManager extends React.Component{
         this.state ={
             q: null,
             a: null,
-            uploaded: null
+            packets: null
         };
         this.selectA = this.selectA.bind(this);
         this.selectQ = this.selectQ.bind(this);
+        this.setContent = this.setContent.bind(this);
     }
     selectQ(e){
         let fileList = e.target.files;
@@ -64,26 +67,33 @@ class ExtractManager extends React.Component{
         let res = await fetch(`http://localhost:4915/api/extract/review?docId=${docId}`,{
             method: "GET"
         });
-        return await res.json().packets;
+        let resJson = await res.json();
+        return resJson.packets;
+    }
+    async setContent(query, object){
+        let param = querystring(query);
+        let form = new FormData();
+        form.append("object", object);
+        await fetch(`http://localhost:4915/api/extract/set?${param}`,{
+            method: "POST",
+            body: form
+        });
     }
     render(){
         if (this.state.packets){
             return <DisplayExtract packets={this.state.packets}/>
         }
         else{
-            return <UploadFile uploaded={this.props.uploaded} selectQ={this.selectQ} selectA={this.selectA}/>
+            return <UploadFile selectQ={this.selectQ} selectA={this.selectA}/>
         }
     }
 }
 
 class UploadFile extends React.Component{
-    constructor(props){
-        super(props);
-    }
     render(){
         return(
-            <div className={style.uploadBox}>
-                <form className={style.formGrid}>
+            <div className={uploadStyle.uploadBox}>
+                <form className={uploadStyle.formGrid}>
                     <label htmlFor="uploadQuestion">Question Booklet</label>
                     <input id="uploadQuestion" type="file" accept=".docx" onChange={this.props.selectQ}></input>
                     <label htmlFor="uploadQuestion">Marking Scheme</label>
@@ -99,10 +109,68 @@ class DisplayExtract extends React.Component{
         super(props);
     }
     render(){
-        console.log(this.props.packets);
+        let packetDisplayers = this.props.packets.map(packet => {
+            return <DisplayPacket packet={packet} key={packet.address.packetId}/>
+        });
         return(
-            <div>
-                <h1>Sent</h1>
+            <div className={extractStyle.extract}>
+                {packetDisplayers}
+            </div>
+        );
+    }
+}
+
+class DisplayPacket extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    render(){
+        let questionDisplayers = this.props.packet.questions.map(question => {
+            return <DisplayQuestion question={question} key={question.address.questionId}/>
+        });
+        return(
+            <div className={extractStyle.packet}>
+                {questionDisplayers}
+            </div>
+        );
+    }
+}
+
+class DisplayQuestion extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    render(){
+        let contentDisplayers = this.props.question.contents.map(content => {
+            let key = content.address.answer ? content.address.contentId+"_answer" : content.address.contentId+"_question";
+            return <DisplayContent content={content} key={key}/>
+        });
+        return(
+            <div className={extractStyle.question}>
+                {contentDisplayers}
+            </div>
+        );
+    }
+}
+
+class DisplayContent extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    render(){
+        let object;
+        switch(this.props.content.type){
+            case "text":
+                object = <p>{this.props.content.object}</p>;
+                break;
+            case "image":
+                object = <img />;
+                break;
+        }
+        let ansStyle = this.props.content.address.answer ? extractStyle.answer : extractStyle.question;
+        return(
+            <div className={ansStyle + " " + extractStyle.content}>
+                {object}
             </div>
         );
     }

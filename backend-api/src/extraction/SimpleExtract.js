@@ -18,9 +18,14 @@ class SimpleExtract{
         let endInd = html.search(sectionB);
         let pattern = /(\d+)\.\s*([A-Z]([^](?!\d+\.))+)/g;
         let matches = [...html.substring(startInd,endInd).matchAll(pattern)];
+        let curPacket = 0;
         for (let i = 0; i < matches.length; i++){
             let question = matches[i][2];
             let packetId = matches[i][1];
+            if (curPacket >= packetId){
+                continue;
+            }
+            curPacket = packetId;
             let questionId = 0;
             let contentId = 0;
             let newContent = new Content(new Address(docId, packetId, questionId, contentId, options.answer), "text", question);

@@ -1,0 +1,23 @@
+.extract{
+    position: relative;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+}
+.packet{
+    display: flex;
+    flex-direction: column;
+}
+.question{
+    display: flex;
+    flex-direction: row;
+}
+.content{
+    text-align: center;
+}
+.question{
+    background-color: rgb(193, 255, 201);
+}
+.answer{
+    background-color: rgb(255, 191, 191);
+}

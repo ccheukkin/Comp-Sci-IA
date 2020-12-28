@@ -2,6 +2,7 @@ import fs from "fs";
 import Content from "../wrapper/Content.js";
 import Question from "../wrapper/Question.js";
 import Packet from "../wrapper/Packet.js";
+import Address from "../wrapper/Address.js";
 
 export default class LocalFileStore{
     // create and get a new unique document id
@@ -179,21 +180,23 @@ export default class LocalFileStore{
             let id = parseInt(file);
             if (id == 0 || id){
                 let dir = `${this.rootDir()}/${docId}/${id}`;
-                let questions = this.getQuestions(dir);
-                packets.push(new Packet(id, questions));
+                let address = new Address(docId, id);
+                let questions = this.getQuestions(dir, address);
+                packets.push(new Packet(address, questions));
             }
         });
         return packets;
     }
-    getQuestions(root){
+    getQuestions(root, packetAddress){
         let questions = [];
         fs.readdirSync(root).forEach(file => {
             let id = parseInt(file);
             if (id == 0 || id){
                 let dir = `${root}/${file}`;
+                let address = new Address(packetAddress.docId, packetAddress.packetId, file)
                 let contents = this.getContents(dir);
                 let categories = this.getCategories(dir);
-                questions.push(new Question(file, contents, categories));
+                questions.push(new Question(address, contents, categories));
             }
         });
         return questions;

@@ -19,14 +19,14 @@ app.use(fileUpload({
 // app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.post("/api/extract/upload", (req, res) => {
+app.post("/api/extract/upload", async (req, res) => {
   let doc = req.files.doc;
   let tryParse = parseInt(req.query.docId);
   let docId = tryParse == 0 || tryParse ? tryParse : extract.getDocId();
   let docDir = `${extract.getDocDir(docId)}/${doc.name}`;
   let isAnswer = parseInt(req.query.answer) ? true : false;
   doc.mv(docDir);
-  extract.extract(docId, docDir, {answer: isAnswer});
+  await extract.extract(docId, docDir, {answer: isAnswer});
   res.send({docId});
 })
 
