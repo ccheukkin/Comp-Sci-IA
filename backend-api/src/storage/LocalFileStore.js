@@ -242,6 +242,12 @@ export default class LocalFileStore{
         return returnQuestions;
     }
     matchQuestion(question, categories, andMode){
-    
+        let match = 0;
+        for (let i = 0; i < categories.length; i++){
+            if (this.haveCategory(question, category)){
+                match++;
+            }
+        }
+        return andMode ? match == categories.length : match > 0;
     }
 }

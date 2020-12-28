@@ -54,6 +54,10 @@ app.post("/api/categorize/set", (req, res) => {
   res.send("OK");
 });
 
+app.get("/api/query/get", (req, res) => {
+  
+});
+
 // app.get("/packets", async (req, res) => {
 //   let packets = await extract.getReview(JSON.parse(req.query.ids));
 //   res.send(packets);
