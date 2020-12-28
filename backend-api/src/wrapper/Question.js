@@ -1,13 +1,10 @@
 export default class Question{
-    constructor(id, contents){
+    constructor(id, contents, categories){
         this.id = id;
         this.contents = contents;
-        this.categories = [];
+        this.categories = categories;
     }
     push(content){
         this.contents.push(content);
-    }
-    categorize(category){
-        this.categories.push(category);
     }
 }

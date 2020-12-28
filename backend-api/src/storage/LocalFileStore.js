@@ -149,61 +149,29 @@ export default class LocalFileStore{
     storePacketsCategories(packets, docId){
         for (let i = 0; i < packets.length; i++){
             let packet = packets[i];
-            this.storeQuestionsCategories(packet.questions, packet.id, docId);
+            let dir = `${getDocDir(docId)}/${packet.id}`;
+            this.storeQuestionsCategories(packet.questions, dir);
         }
     }
     // append categories of a list of questions
-    storeQuestionsCategories(questions, packetId, docId){
+    storeQuestionsCategories(questions, root){
         for (let i = 0; i < questions.length; i++){
             let question = questions[i];
-            this.addCategories(docId, packetId, question.id, question.categories);
+            let dir = `${root}/${question.id}`
+            this.setCategories(dir, question.categories);
         }
     }
-    // modify the categorization of a question
-    setCategories(docId, packetId, questionId, categories){
-        this.clearCategories(docId, packetId, questionId);
-        let succeed = this.addCategories(docId, packetId, questionId, categories);
-        return succeed;
+    // set the categorization of a question
+    setCategories(root, categories){
+        fs.writeFileSync(`${root}/categories.json`, JSON.stringify(categories));
     }
-    // clear all of an address in the categories.json file
-    clearCategories(docId, packetId, questionId){
-        let categoryStore = JSON.parse(fs.readFileSync(`${getDocDir(docId)}/categories.json`));
-        for (let i = 0; i < categoryStore.length; i++){
-            this.clearInTopics(categoryStore[i].questions, docId, packetId, questionId);
+    // get the categorization of a question
+    getCategories(root){
+        let file = `${root}/categories.json`;
+        if (!fs.existsSync(file)){
+            return [];
         }
-    }
-    // clear all of an address in one single topic
-    clearInTopics(questions, docId, packetId, questionId){
-        for (let i = 0; i < questions.length; i++){
-            if (this.sameQuestion(questions[i], docId, packetId, questionId)){
-                questions.splice(i, 1);
-                i--;
-            }
-        }
-    }
-    // Compare two question are they the same
-    sameQuestion(question, docId, packetId, questionId){
-        let sameDoc = question.docId == docId;
-        let samePacket = question.packetId == packetId;
-        let sameQuestion = question.questionId == questionId;
-        return sameDoc && samePacket && sameQuestion;
-    }
-    // Append multiple categories
-    addCategories(docId, packetId, questionId, categories){
-        let categoryStore = JSON.parse(fs.readFileSync(`${getDocDir(docId)}/categories.json`));
-        let address = new QuestionAddress(docId, packetId, questionId);
-        for (let i = 0; i < categories.length; i++){
-            this.addCategory(categories[i], address, categoryStore);
-        }
-        fs.writeFileSync(`${getDocDir(docId)}/categories.json`, categoryStore);
-    }
-    // Append one single category
-    addCategory(category, address, categoryStore){
-        for (let i = 0; i < categoryStore.length; i++){
-            if (categoryStore[i].topic == category){
-                categoryStore[i].questions.push(address);
-            }
-        }
+        return JSON.parse(fs.readFileSync(file));
     }
     // RETRIEVING
     getPackets(docId) {
@@ -226,7 +194,8 @@ export default class LocalFileStore{
             if (id == 0 || id){
                 let dir = `${root}/${file}`;
                 let contents = this.getContents(dir);
-                questions.push(new Question(file, contents));
+                let categories = this.getCategories(dir);
+                questions.push(new Question(file, contents, categories));
             }
         });
         return questions;
@@ -239,31 +208,5 @@ export default class LocalFileStore{
             contents.push(new Content(contentInfo));
         }
         return contents;
-    }
-    getCategorized(docId){
-        let extracted = getPackets(docId);
-        let categoryStore = JSON.parse(fs.readFileSync(`${getDocDir(docId)}/categories.json`));
-        for (let i = 0; i < categoryStore.length; i++){
-            this.applyTopic(extracted, categoryStore[i]);
-        }
-        return extracted;
-    }
-    applyTopic(packets, topicObj){
-        for (let i = 0; i < topicObj.questions.length; i++){
-            let address = topicObj.questions[i];
-            this.applyToAddress(packets, address, topicObj.topic);
-        }
-    }
-    applyToAddress(packets, address, topic){
-        for (let i = 0; i < packets.length; i++){
-            if (packets[i].id == address.packetId){
-                let questions = packets[i].questions;
-                for (let j = 0; j < questions.length; j++){
-                    if (questions[i].id == address.questionId){
-                        questions[i].categorize(topic);
-                    }
-                }
-            }
-        }
     }
 }
