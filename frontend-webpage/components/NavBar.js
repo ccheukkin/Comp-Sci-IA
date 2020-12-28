@@ -7,10 +7,10 @@ class NavBar extends React.Component{
         return(
         <div className={style.main}>
             <div className={style.logo}></div>
-            <div className={style.logoWords}>Questions Sorter</div>
+            <div className={style.logoWords}>QueCat</div>
             <Link href="/"><a className={style.link}><NavBarButtons name="Home"/></a></Link>
-            <Link href="/upload"><a className={style.link}><NavBarButtons name="Upload"/></a></Link>
-            <a className={style.link}><NavBarButtons name="Review"/></a>
+            <Link href="/extraction"><a className={style.link}><NavBarButtons name="Upload"/></a></Link>
+            <a className={style.link}><NavBarButtons name="Categorize"/></a>
             <a className={style.link}><NavBarButtons name="Search"/></a>
         </div>
         );

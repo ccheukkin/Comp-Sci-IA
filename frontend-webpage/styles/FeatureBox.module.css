@@ -24,16 +24,18 @@
     justify-content: center;
     padding-right: 5%;
     padding-left: 5%;
-    background-color: rgba(87, 87, 87, 0.5);
+    background-color: rgba(58, 58, 58, 0.5);
 }
 .big{
     font-size: 50px;
     font-weight: 300;
-    font-family: Roboto, sans-serif;
+    font-family: Viga, sans-serif;
+    /* text-shadow: 0 0 5px rgba(0, 0, 0, 0.178); */
 }
 .small{
     font-size: 20px;
     font-weight: 100;
+    /* text-shadow: 0 0 5px rgba(0, 0, 0, 0.589); */
 }
 .space{
     height: 20px;
@@ -49,7 +51,7 @@
     transition: color 0.2s, transform 0.2s;
 }
 .button:hover{
-    color: rgb(211, 211, 211);
+    color: rgb(175, 175, 175);
     transform: scale(1.1,1.1);
 }
 .link{

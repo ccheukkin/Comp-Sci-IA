@@ -11,7 +11,7 @@ const Home = () => {
             <FeatureBox
                 index={0}
                 title="Sort Questions by Topic"
-                description="Past paper questions are sorted based on their topics. You can get all the questions that are of the same type."
+                description="Past paper questions are categorized based on their topics. You can get all the questions that are of the same type."
                 name="question"
                 link=""
             />

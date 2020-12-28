@@ -6,4 +6,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+}
+.formGrid{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
 }
