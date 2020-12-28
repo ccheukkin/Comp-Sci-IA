@@ -2,7 +2,6 @@ import fs from "fs";
 import Content from "../wrapper/Content.js";
 import Question from "../wrapper/Question.js";
 import Packet from "../wrapper/Packet.js";
-import QuestionAddress from "../wrapper/Address.js";
 
 export default class LocalFileStore{
     // create and get a new unique document id
@@ -147,24 +146,23 @@ export default class LocalFileStore{
 
     // CATEGORIZE
     // append categories of a list of packets
-    storePacketsCategories(packets, docId){
+    storePacketsCategories(packets){
         for (let i = 0; i < packets.length; i++){
             let packet = packets[i];
-            let dir = `${getDocDir(docId)}/${packet.address.packetId}`;
-            this.storeQuestionsCategories(packet.questions, dir);
+            this.storeQuestionsCategories(packet.questions);
         }
     }
     // append categories of a list of questions
-    storeQuestionsCategories(questions, root){
+    storeQuestionsCategories(questions){
         for (let i = 0; i < questions.length; i++){
             let question = questions[i];
-            let dir = `${root}/${question.address.questionId}`
-            this.setCategories(dir, question.categories);
+            this.setCategories(question.categories, question.address.docId, question.address.packetId, question.address.questionId);
         }
     }
     // set the categorization of a question
-    setCategories(root, categories){
-        fs.writeFileSync(`${root}/categories.json`, JSON.stringify(categories));
+    setCategories(categories, docId, packetId, questionId){
+        let dir = `${rooDir()}/${docId}/${packetId}/${questionId}`;
+        fs.writeFileSync(`${dir}/categories.json`, JSON.stringify(categories));
     }
     // get the categorization of a question
     getCategories(root){

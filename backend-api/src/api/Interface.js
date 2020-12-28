@@ -50,12 +50,12 @@ app.get("/api/categorize/review", async (req, res) => {
 });
 
 app.post("/api/categorize/set", (req, res) => {
-  console.log(JSON.parse(req.body.categories));
+  categorize.setCategories(req.body);
   res.send("OK");
 });
 
 app.get("/api/query/get", (req, res) => {
-  
+
 });
 
 // app.get("/packets", async (req, res) => {
