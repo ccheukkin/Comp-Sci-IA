@@ -212,13 +212,13 @@ export default class LocalFileStore{
     }
 
     //QUERYING
-    query(options){
+    query(categories, andMode){
         let returnQuestions = [];
         fs.readdirSync(this.rootDir()).forEach(file=>{
             let docId = parseInt(file);
-            if (docId){
+            if (docId == 0 || docId){
                 let packets = this.getPackets(docId);
-                let addQuestions = this.searchPackets(packets, options.categories, options.andMode);
+                let addQuestions = this.searchPackets(packets, categories, andMode);
                 returnQuestions = returnQuestions.concat(addQuestions);
             }
         });
@@ -235,6 +235,7 @@ export default class LocalFileStore{
     searchQuestions(questions, categories, andMode){
         let returnQuestions = [];
         for (let i = 0; i < questions.length; i++){
+            let a = this.matchQuestion(questions[i], categories, andMode);
             if (this.matchQuestion(questions[i], categories, andMode)){
                 returnQuestions.push(questions[i]);
             }
@@ -244,7 +245,8 @@ export default class LocalFileStore{
     matchQuestion(question, categories, andMode){
         let match = 0;
         for (let i = 0; i < categories.length; i++){
-            if (this.haveCategory(question, category)){
+            let category = categories[i];
+            if (question.categories.includes(category)){
                 match++;
             }
         }

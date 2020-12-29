@@ -3,20 +3,23 @@ import ExtractInterface from "./ExtractInterface.js";
 import CategorizeInterface from "./CategorizeInterface.js";
 import SimpleExtract from "../extraction/SimpleExtract.js";
 import KeywordCategorize from "../categorizing/KeywordCategorize.js";
+import QueryingInterface from "./QueryingInterface.js";
 import LocalFileStore from "../storage/LocalFileStore.js";
 import fileUpload from "express-fileupload";
 import bodyParser from "body-parser";
 import cors from "cors";
 
-const extract = new ExtractInterface(new SimpleExtract(), new LocalFileStore());
-const categorize = new CategorizeInterface(new KeywordCategorize(), new LocalFileStore());
+let storeClass = new LocalFileStore();
+const extract = new ExtractInterface(new SimpleExtract(), storeClass);
+const categorize = new CategorizeInterface(new KeywordCategorize(), storeClass);
+const query = new QueryingInterface(storeClass);
 
 const app = express();
 app.use(cors());
 app.use(fileUpload({
   createParentPath: true
 }));
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.post("/api/extract/upload", async (req, res) => {
@@ -55,8 +58,9 @@ app.post("/api/categorize/set", (req, res) => {
   res.send("OK");
 });
 
-app.post("/api/query/get", (req, res) => {
-
+app.post("/api/query/get", async (req, res) => {
+  let questions = await query.query(req.body.options);
+  res.send(questions);
 });
 
 // app.get("/packets", async (req, res) => {

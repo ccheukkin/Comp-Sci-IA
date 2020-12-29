@@ -1,5 +1,5 @@
 import React from 'react'
-import DisplayPacket from "./DisplayExtract.js"
+import {DisplayPacket as DisplayPacket} from "./DisplayExtract.js"
 import queryStyle from "../styles/QueryStyle.module.css"
 
 class QueryManager extends React.Component{
@@ -16,16 +16,18 @@ class QueryManager extends React.Component{
     }
     async getQuestions(categories, mode){
         let options = {categories, mode};
+        console.log({options});
         let res = await fetch("http://localhost:4915/api/query/get",{
+            headers: {"Content-Type": "application/json"},
             method: "POST",
-            body: options
+            body: JSON.stringify({options})
         });
         let resJson = await res.json();
         return resJson.questions;
     }
     render(){
         let list = null;
-        if (this.state.questions.length != 0){
+        if (this.state.questions && this.state.questions.length != 0){
             let fakePacket = {questions: this.state.questions};
             list = <DisplayPacket packet={fakePacket} categorized={false}/>;
         }
