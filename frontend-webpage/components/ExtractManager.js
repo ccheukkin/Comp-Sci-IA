@@ -1,6 +1,6 @@
 import React from 'react'
 import uploadStyle from "../styles/UploadFile.module.css"
-import displayStyle from "../styles/DisplayPackets.module.css"
+import DisplayExtract from "./DisplayExtract.js"
 import querystring from "querystring"
 import cookieCutter from "cookie-cutter"
 
@@ -83,7 +83,7 @@ class ExtractManager extends React.Component{
     }
     render(){
         if (this.state.packets){
-            return <DisplayExtract packets={this.state.packets}/>
+            return <DisplayExtract packets={this.state.packets} categorized={false}/>
         }
         else{
             return <UploadFile selectQ={this.selectQ} selectA={this.selectA}/>
@@ -105,77 +105,4 @@ class UploadFile extends React.Component{
         );
     }
 }
-
-class DisplayExtract extends React.Component{
-    constructor(props){
-        super(props);
-    }
-    render(){
-        let packetDisplayers = this.props.packets.map(packet => {
-            return <DisplayPacket packet={packet} key={packet.address.packetId}/>
-        });
-        return(
-            <div className={displayStyle.extract}>
-                {packetDisplayers}
-            </div>
-        );
-    }
-}
-
-class DisplayPacket extends React.Component{
-    constructor(props){
-        super(props);
-    }
-    render(){
-        let questionDisplayers = this.props.packet.questions.map(question => {
-            return <DisplayQuestion question={question} key={question.address.questionId}/>
-        });
-        return(
-            <div className={displayStyle.packet}>
-                {questionDisplayers}
-            </div>
-        );
-    }
-}
-
-class DisplayQuestion extends React.Component{
-    constructor(props){
-        super(props);
-    }
-    render(){
-        let contentDisplayers = this.props.question.contents.map(content => {
-            let key = content.address.answer ? content.address.contentId+"_answer" : content.address.contentId+"_question";
-            return <DisplayContent content={content} key={key}/>
-        });
-        return(
-            <div className={displayStyle.question}>
-                {contentDisplayers}
-            </div>
-        );
-    }
-}
-
-class DisplayContent extends React.Component{
-    constructor(props){
-        super(props);
-    }
-    render(){
-        let object;
-        switch(this.props.content.type){
-            case "text":
-                object = <p>{this.props.content.object}</p>;
-                break;
-            case "image":
-                object = <img />;
-                break;
-        }
-        let ansStyle = this.props.content.address.answer ? displayStyle.answer : displayStyle.question;
-        return(
-            <div className={ansStyle + " " + displayStyle.content}>
-                {object}
-            </div>
-        );
-    }
-}
-
 export default ExtractManager;

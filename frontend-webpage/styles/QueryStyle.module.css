@@ -1,0 +1,87 @@
+.page{
+    position: relative;
+    top: 70px;
+}
+.queryBox{
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: white;
+}
+.criteriaRow{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.mainBox{
+    height: 30px;
+    line-height: 30px;
+    margin-right: 10px;
+}
+.frontBox{
+    height: 100%;
+    width: 100%;
+    padding: 0px 6px 0px 6px;
+    z-index: 1;
+    position: relative;
+    color: black;
+    transition: color 0.3s;
+}
+.frontBox.hovered{
+    cursor: pointer;
+}
+.frontBox.selected{
+    cursor: pointer;
+    color: white;
+}
+.backContainer{
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    align-items: center;
+    bottom: 100%;
+}
+.backBox{
+    height: 5px;
+    width: 0%;
+    transition: height 0.3s, width 0.3s;
+}
+.backBox.hovered{
+    width: 100%;
+}
+.backBox.selected{
+    width: 100%;
+    height: 100%;
+}
+.blue{
+    background-color: rgb(115, 132, 228);
+}
+.green{
+    background-color: rgb(115, 228, 158);
+}
+.search{
+    width: 100px;
+    height: 40px;
+    border-style: none;
+    background-color: rgb(255, 205, 129);
+    color: white;
+    font-size: 22px;
+    transition: background-color 0.2s;
+}
+.search:hover{
+    cursor: pointer;
+    background-color: rgb(228, 179, 133)
+}
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

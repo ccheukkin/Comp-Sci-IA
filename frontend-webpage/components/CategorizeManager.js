@@ -1,5 +1,5 @@
 import React from 'react'
-import displayStyle from "../styles/DisplayPackets.module.css"
+import DisplayExtract from "./DisplayExtract.js"
 import loadingStyle from "../styles/LoadingScreen.module.css"
 import cookieCutter from "cookie-cutter"
 
@@ -34,7 +34,7 @@ class CategorizeManager extends React.Component{
     }
     render(){
         if (this.state.packets){
-            return <DisplayCategory packets={this.state.packets}/>;
+            return <DisplayExtract packets={this.state.packets} categorized={true} />;
         }
         else{
             return <LoadingScreen />;
@@ -47,19 +47,6 @@ class LoadingScreen extends React.Component{
         return(
             <div className={loadingStyle.loadingBox}>
                 Loading...
-            </div>
-        );
-    }
-}
-
-class DisplayCategory extends React.Component{
-    constructor(props){
-        super(props);
-    }
-    render(){
-        return(
-            <div>
-
             </div>
         );
     }

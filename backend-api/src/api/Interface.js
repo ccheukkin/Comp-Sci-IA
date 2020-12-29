@@ -55,7 +55,7 @@ app.post("/api/categorize/set", (req, res) => {
   res.send("OK");
 });
 
-app.get("/api/query/get", (req, res) => {
+app.post("/api/query/get", (req, res) => {
 
 });
 

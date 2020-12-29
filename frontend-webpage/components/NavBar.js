@@ -11,7 +11,7 @@ class NavBar extends React.Component{
             <Link href="/"><a className={style.link}><NavBarButtons name="Home"/></a></Link>
             <Link href="/extraction"><a className={style.link}><NavBarButtons name="Upload"/></a></Link>
             <Link href="/categorizing"><a className={style.link}><NavBarButtons name="Categorize"/></a></Link>
-            <a className={style.link}><NavBarButtons name="Search"/></a>
+            <Link href="/querying"><a className={style.link}><NavBarButtons name="Search"/></a></Link>
         </div>
         );
     }
