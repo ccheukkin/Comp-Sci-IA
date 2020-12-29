@@ -10,7 +10,7 @@ class NavBar extends React.Component{
             <div className={style.logoWords}>QueCat</div>
             <Link href="/"><a className={style.link}><NavBarButtons name="Home"/></a></Link>
             <Link href="/extraction"><a className={style.link}><NavBarButtons name="Upload"/></a></Link>
-            <a className={style.link}><NavBarButtons name="Categorize"/></a>
+            <Link href="/categorizing"><a className={style.link}><NavBarButtons name="Categorize"/></a></Link>
             <a className={style.link}><NavBarButtons name="Search"/></a>
         </div>
         );

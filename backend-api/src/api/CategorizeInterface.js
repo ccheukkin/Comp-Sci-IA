@@ -9,7 +9,7 @@ export default class CategorizeInterface{
         this.storeClass.storePacketsCategories(packets);
     }
     async getReview(docId){
-        return await this.storeClass.getCategorized(docId);
+        return await this.storeClass.getPackets(docId);
     }
     setCategories(body){
         setCategories(body.categories, body.docId, body.packetId, body.questionId);

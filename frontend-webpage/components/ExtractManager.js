@@ -1,7 +1,8 @@
 import React from 'react'
 import uploadStyle from "../styles/UploadFile.module.css"
-import extractStyle from "../styles/DisplayExtract.module.css"
+import displayStyle from "../styles/DisplayPackets.module.css"
 import querystring from "querystring"
+import cookieCutter from "cookie-cutter"
 
 class ExtractManager extends React.Component{
     constructor(props){
@@ -42,6 +43,7 @@ class ExtractManager extends React.Component{
             this.loading();
             let docId = await this.sendFiles(state);
             state.packets = await this.getPackets(docId);
+            cookieCutter.set("docId", docId);
         }
         this.setState(state);
     }
@@ -113,7 +115,7 @@ class DisplayExtract extends React.Component{
             return <DisplayPacket packet={packet} key={packet.address.packetId}/>
         });
         return(
-            <div className={extractStyle.extract}>
+            <div className={displayStyle.extract}>
                 {packetDisplayers}
             </div>
         );
@@ -129,7 +131,7 @@ class DisplayPacket extends React.Component{
             return <DisplayQuestion question={question} key={question.address.questionId}/>
         });
         return(
-            <div className={extractStyle.packet}>
+            <div className={displayStyle.packet}>
                 {questionDisplayers}
             </div>
         );
@@ -146,7 +148,7 @@ class DisplayQuestion extends React.Component{
             return <DisplayContent content={content} key={key}/>
         });
         return(
-            <div className={extractStyle.question}>
+            <div className={displayStyle.question}>
                 {contentDisplayers}
             </div>
         );
@@ -167,9 +169,9 @@ class DisplayContent extends React.Component{
                 object = <img />;
                 break;
         }
-        let ansStyle = this.props.content.address.answer ? extractStyle.answer : extractStyle.question;
+        let ansStyle = this.props.content.address.answer ? displayStyle.answer : displayStyle.question;
         return(
-            <div className={ansStyle + " " + extractStyle.content}>
+            <div className={ansStyle + " " + displayStyle.content}>
                 {object}
             </div>
         );

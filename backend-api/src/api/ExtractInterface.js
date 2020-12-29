@@ -18,7 +18,6 @@ export default class ExtractInterface{
     }
     async setContent(query, object, file){
         let realObject = query.type == "image" ? file : object;
-        let succeed = await this.storeClass.setContent(query.docId, query.packetId, query.questionId, query.contentId, query.type, query.answer, query.createParent, query.replace, realObject);
-        return succeed ? "Succeed" : "Failed";
+        await this.storeClass.setContent(query.docId, query.packetId, query.questionId, query.contentId, query.type, query.answer, query.createParent, query.replace, realObject);
     }
 }

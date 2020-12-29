@@ -25,7 +25,7 @@ app.post("/api/extract/upload", async (req, res) => {
   let docId = tryParse == 0 || tryParse ? tryParse : extract.getDocId();
   let docDir = `${extract.getDocDir(docId)}/${doc.name}`;
   let isAnswer = parseInt(req.query.answer) ? true : false;
-  doc.mv(docDir);
+  await doc.mv(docDir);
   await extract.extract(docId, docDir, {answer: isAnswer});
   res.send({docId});
 })
@@ -36,12 +36,12 @@ app.get("/api/extract/review", async (req, res) => {
 });
 
 app.post("/api/extract/set", async (req, res) => {
-  let status = await extract.setContent(req.query, req.body.object, req.files.object);
-  res.send(status);
+  extract.setContent(req.query, req.body.object, req.files.object);
+  res.send("OK");
 });
 
-app.get("/api/extract/done", (req, res) => {
-  categorize.categorize(req.query.docId);
+app.get("/api/extract/done", async (req, res) => {
+  await categorize.categorize(req.query.docId);
   res.send("OK");
 });
 
