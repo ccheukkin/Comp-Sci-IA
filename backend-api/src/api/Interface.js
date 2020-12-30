@@ -33,11 +33,6 @@ app.post("/api/extract/upload", async (req, res) => {
   res.send({docId});
 })
 
-app.get("/api/extract/review", async (req, res) => {
-  let packets = await extract.getReview(parseInt(req.query.docId));
-  res.send({packets});
-});
-
 app.post("/api/extract/set", async (req, res) => {
   extract.setContent(req.query, req.body.object, req.files.object);
   res.send("OK");
@@ -48,14 +43,14 @@ app.get("/api/extract/done", async (req, res) => {
   res.send("OK");
 });
 
-app.get("/api/categorize/review", async (req, res) => {
-  let packets = await categorize.getReview(parseInt(req.query.docId));
-  res.send(packets);
-});
-
 app.post("/api/categorize/set", (req, res) => {
   categorize.setCategories(req.body);
   res.send("OK");
+});
+
+app.get("/api/query/review", async (req, res) => {
+  let packets = await query.getReview(parseInt(req.query.docId));
+  res.send({packets});
 });
 
 app.post("/api/query/get", async (req, res) => {

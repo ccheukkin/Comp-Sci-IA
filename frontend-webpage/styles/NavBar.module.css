@@ -23,10 +23,12 @@
     height: 100%;
     line-height: 70px;
     border-style: none;
-    background-color: rgb(250, 250, 250);
     transition: background-color 0.2s;
 }
-.button:hover{
+.button.unhighlighted{
+    background-color: rgb(250, 250, 250);
+}
+.button.highlighted{
     cursor: pointer;
     background-color: rgb(229, 235, 240);
 }

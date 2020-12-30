@@ -26,7 +26,7 @@ class CategorizeManager extends React.Component{
         });
     }
     async getPackets(docId){
-        let res = await fetch(`http://localhost:4915/api/categorize/review?docId=${docId}`,{
+        let res = await fetch(`http://localhost:4915/api/query/review?docId=${docId}`,{
             method: "GET"
         });
         let resJson = res.json();

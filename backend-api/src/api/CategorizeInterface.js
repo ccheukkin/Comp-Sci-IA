@@ -8,9 +8,6 @@ export default class CategorizeInterface{
         packets = await this.categorizeClass.categorize(packets);
         this.storeClass.storePacketsCategories(packets);
     }
-    async getReview(docId){
-        return await this.storeClass.getPackets(docId);
-    }
     setCategories(body){
         setCategories(body.categories, body.docId, body.packetId, body.questionId);
     }

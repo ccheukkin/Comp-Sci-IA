@@ -34,16 +34,17 @@ class ExtractManager extends React.Component{
         };
         this.checkUpload(newState);
     }
-    loading(){
-        console.log("Loading");
+    loading(bool){
+        console.log("Loading = "+bool.toString());
     }
     async checkUpload(state){
         let packets = state.q && state.a;
         if (packets && confirm("Confirm?")){
-            this.loading();
+            this.loading(true);
             let docId = await this.sendFiles(state);
             state.packets = await this.getPackets(docId);
             cookieCutter.set("docId", docId);
+            this.loading(false);
         }
         this.setState(state);
     }
@@ -66,7 +67,7 @@ class ExtractManager extends React.Component{
         return docId;
     }
     async getPackets(docId){
-        let res = await fetch(`http://localhost:4915/api/extract/review?docId=${docId}`,{
+        let res = await fetch(`http://localhost:4915/api/query/review?docId=${docId}`,{
             method: "GET"
         });
         let resJson = await res.json();
@@ -80,6 +81,23 @@ class ExtractManager extends React.Component{
             method: "POST",
             body: form
         });
+    }
+    async fetchPackets(docId){
+        this.loading(true);
+        let packets = await this.getPackets(docId);
+
+        this.setState({
+            q: this.state.q,
+            a: this.state.a,
+            packets: packets
+        });
+        this.loading(false);
+    }
+    componentDidMount(){
+        let docId = parseInt(cookieCutter.get("docId"));
+        if (docId == 0 || docId){
+            this.fetchPackets(docId);
+        }
     }
     render(){
         if (this.state.packets){

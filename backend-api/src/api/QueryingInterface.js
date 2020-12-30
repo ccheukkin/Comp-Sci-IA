@@ -2,6 +2,9 @@ export default class QueryingInterface{
     constructor(storeClass){
         this.storeClass = storeClass;
     }
+    async getReview(docId){
+        return await this.storeClass.getPackets(docId);
+    }
     async query(options){
         let andMode;
         switch(options.mode){

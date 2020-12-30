@@ -10,7 +10,7 @@ const Home = () => {
             <div id="jump"></div>
             <FeatureBox
                 index={0}
-                title="Sort Questions by Topic"
+                title="Categorize Questions by Topic"
                 description="Past paper questions are categorized based on their topics. You can get all the questions that are of the same type."
                 name="question"
                 link=""

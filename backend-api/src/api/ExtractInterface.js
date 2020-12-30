@@ -13,9 +13,6 @@ export default class ExtractInterface{
         let resultPackets = await this.extractClass.extract(docId, docDir, options);
         this.storeClass.storePacketExtractions(resultPackets, docId);
     }
-    async getReview(docId){
-        return await this.storeClass.getPackets(docId);
-    }
     async setContent(query, object, file){
         let realObject = query.type == "image" ? file : object;
         await this.storeClass.setContent(query.docId, query.packetId, query.questionId, query.contentId, query.type, query.answer, query.createParent, query.replace, realObject);

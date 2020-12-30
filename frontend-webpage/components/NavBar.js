@@ -37,8 +37,9 @@ class NavBarButtons extends React.Component{
         });
     }
     render(){
+        let buttonStyle = this.state.scale == 0 ? style.unhighlighted : style.highlighted;
         return(
-            <button className={style.button}
+            <button className={style.button+" "+buttonStyle}
             onMouseEnter={this.handleEnter}
             onMouseLeave={this.handleLeave}>
                 {this.props.name}
