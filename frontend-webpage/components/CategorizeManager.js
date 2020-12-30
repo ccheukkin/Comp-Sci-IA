@@ -32,6 +32,15 @@ class CategorizeManager extends React.Component{
         let resJson = res.json();
         return resJson.packets();
     }
+    async setCategories(query, categories){
+        let param = querystring(query);
+        let form = new FormData();
+        form.append("categories", JSON.stringify(categories));
+        await fetch(`http://localhost:4915/api/categorize/set?${param}`,{
+            method: "POST",
+            body: form
+        });
+    }
     render(){
         if (this.state.packets){
             return <DisplayExtract packets={this.state.packets} categorized={true} />;

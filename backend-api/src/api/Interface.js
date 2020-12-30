@@ -34,7 +34,7 @@ app.post("/api/extract/upload", async (req, res) => {
 })
 
 app.post("/api/extract/set", async (req, res) => {
-  await extract.setContent(req.query, req.body.object, req.files.object);
+  await extract.setContent(req.query, req.body.object, req.files);
   res.send("OK");
 });
 
@@ -44,7 +44,7 @@ app.get("/api/categorize/start", async (req, res) => {
 });
 
 app.post("/api/categorize/set", (req, res) => {
-  let status = await categorize.setCategories(req.body);
+  let status = await categorize.setCategories(req.query, req.body.categories);
   res.send(status);
 });
 
@@ -57,11 +57,6 @@ app.post("/api/query/get", async (req, res) => {
   let questions = await query.query(req.body.options);
   res.send(questions);
 });
-
-// app.get("/packets", async (req, res) => {
-//   let packets = await extract.getReview(JSON.parse(req.query.ids));
-//   res.send(packets);
-// });
 
 app.listen(4915, () =>
   console.log(`Listening!`),

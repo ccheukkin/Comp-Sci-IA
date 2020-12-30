@@ -76,7 +76,7 @@ class ExtractManager extends React.Component{
     async setContent(query, object){
         let param = querystring(query);
         let form = new FormData();
-        form.append("object", object);
+        form.append("object", JSON.stringify(object));
         await fetch(`http://localhost:4915/api/extract/set?${param}`,{
             method: "POST",
             body: form
