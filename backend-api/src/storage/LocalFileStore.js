@@ -157,7 +157,7 @@ export default class LocalFileStore{
     storeQuestionsCategories(questions){
         for (let i = 0; i < questions.length; i++){
             let question = questions[i];
-            this.setCategories(question.categories, question.address.docId, question.address.packetId, question.address.questionId);
+            this.setCategories(question);
         }
     }
     // set the categorization of a question

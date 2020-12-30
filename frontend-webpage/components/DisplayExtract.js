@@ -57,7 +57,7 @@ class DisplayContent extends React.Component{
                 object = <img />;
                 break;
         }
-        let ansStyle = this.props.content.address.answer ? displayStyle.answer : displayStyle.question;
+        let ansStyle = this.props.content.address.answer ? displayStyle.a : displayStyle.q;
         return(
             <div className={ansStyle + " " + displayStyle.content}>
                 {object}
@@ -68,9 +68,14 @@ class DisplayContent extends React.Component{
 
 class DisplayCategories extends React.Component{
     render(){
+        let categories = this.props.categories.map(category=>{
+            return <li key={category}>{category}</li>
+        });
         return(
-            <div>
-
+            <div className={displayStyle.categories}>
+                <ul>
+                    {categories}
+                </ul>
             </div>
         );
     }

@@ -7,7 +7,7 @@ export default class CategorizeInterface{
         this.storeClass = storeClass;
     }
     async categorize(docId){
-        let packets = await this.getReview(docId);
+        let packets = await this.storeClass.getPackets(docId);
         packets = await this.categorizeClass.categorize(packets);
         this.storeClass.storePacketsCategories(packets);
     }

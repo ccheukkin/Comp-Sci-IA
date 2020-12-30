@@ -39,11 +39,11 @@ app.post("/api/extract/set", async (req, res) => {
 });
 
 app.get("/api/categorize/start", async (req, res) => {
-  await categorize.categorize(req.query.docId);
+  await categorize.categorize(parseInt(req.query.docId));
   res.send("OK");
 });
 
-app.post("/api/categorize/set", (req, res) => {
+app.post("/api/categorize/set", async (req, res) => {
   let status = await categorize.setCategories(req.query, req.body.categories);
   res.send(status);
 });

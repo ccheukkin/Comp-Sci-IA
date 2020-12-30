@@ -29,8 +29,8 @@ class CategorizeManager extends React.Component{
         let res = await fetch(`http://localhost:4915/api/query/review?docId=${docId}`,{
             method: "GET"
         });
-        let resJson = res.json();
-        return resJson.packets();
+        let resJson = await res.json();
+        return resJson.packets;
     }
     async setCategories(query, categories){
         let param = querystring(query);

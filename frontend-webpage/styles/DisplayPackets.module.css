@@ -15,9 +15,15 @@
 .content{
     text-align: center;
 }
-.question{
-    background-color: rgb(193, 255, 201);
+.q{
+    background-color: rgb(231, 231, 231);
+    width: 50%;
 }
-.answer{
-    background-color: rgb(255, 191, 191);
+.a{
+    background-color: rgb(214, 214, 214);
+    width: 50%;
+}
+.categories{
+    background-color: rgb(199, 199, 199);
+    width: 300px;
 }

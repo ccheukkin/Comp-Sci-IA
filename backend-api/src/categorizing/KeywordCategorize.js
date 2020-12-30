@@ -5,7 +5,7 @@ class KeywordCategorize{
     patterns(){ return [
         {topic: "System Fundamental", keywords: "(beta)|(alpha)|(testing)|(organi[sz]ation)|(planning)"},
         {topic: "Computer Organization", keywords: "(primary)|(secondary)|(\WCAD\W)|(RGB)"},
-        {topic: "Networks", keywords: "(P2P)|(server)|(Bandwidth)|(\WIP\W)|(\WTCP\W)|(network)"},
+        {topic: "Networks", keywords: "(P2P)|(\Wserver\W)|(Bandwidth)|(\WIP\W)|(\WTCP\W)|(network)"},
         {topic: "Computational Thinking", keywords: "(Programming)"},
         {topic: "Object Oriented Programming", keywords: "(Abstraction)|(Encapsulation)|(Polymorphism)|(Inheritance)|(Overload)"}
     ];}
