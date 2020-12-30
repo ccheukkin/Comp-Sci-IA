@@ -21,7 +21,7 @@ class SimpleExtract{
         let curPacket = 0;
         for (let i = 0; i < matches.length; i++){
             let question = matches[i][2];
-            let packetId = matches[i][1];
+            let packetId = parseInt(matches[i][1]);
             if (curPacket >= packetId){
                 continue;
             }

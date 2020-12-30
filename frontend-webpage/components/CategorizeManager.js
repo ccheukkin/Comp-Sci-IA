@@ -21,7 +21,7 @@ class CategorizeManager extends React.Component{
         this.setState({packets});
     }
     async categorize(docId){
-        await fetch(`http://localhost:4915/api/extract/done?docId=${docId}`,{
+        await fetch(`http://localhost:4915/api/categorize/start?docId=${docId}`,{
             method: "GET"
         });
     }

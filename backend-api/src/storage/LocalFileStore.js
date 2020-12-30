@@ -162,7 +162,11 @@ export default class LocalFileStore{
     // set the categorization of a question
     setCategories(categories, docId, packetId, questionId){
         let dir = `${this.rootDir()}/${docId}/${packetId}/${questionId}`;
-        fs.writeFileSync(`${dir}/categories.json`, JSON.stringify(categories));
+        if (fs.existsSync(dir)){
+            fs.writeFileSync(`${dir}/categories.json`, JSON.stringify(categories));
+            return true;
+        }
+        return false;
     }
     // get the categorization of a question
     getCategories(root){

@@ -8,7 +8,8 @@ export default class CategorizeInterface{
         packets = await this.categorizeClass.categorize(packets);
         this.storeClass.storePacketsCategories(packets);
     }
-    setCategories(body){
-        setCategories(body.categories, body.docId, body.packetId, body.questionId);
+    async setCategories(body){
+        let success = await setCategories(body.categories, body.docId, body.packetId, body.questionId);
+        return success ? "Succeed" : "Failed";
     }
 }

@@ -34,18 +34,18 @@ app.post("/api/extract/upload", async (req, res) => {
 })
 
 app.post("/api/extract/set", async (req, res) => {
-  extract.setContent(req.query, req.body.object, req.files.object);
+  await extract.setContent(req.query, req.body.object, req.files.object);
   res.send("OK");
 });
 
-app.get("/api/extract/done", async (req, res) => {
+app.get("/api/categorize/start", async (req, res) => {
   await categorize.categorize(req.query.docId);
   res.send("OK");
 });
 
 app.post("/api/categorize/set", (req, res) => {
-  categorize.setCategories(req.body);
-  res.send("OK");
+  let status = await categorize.setCategories(req.body);
+  res.send(status);
 });
 
 app.get("/api/query/review", async (req, res) => {
