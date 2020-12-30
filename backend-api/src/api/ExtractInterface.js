@@ -1,3 +1,6 @@
+import Content from "../wrapper/Content.js";
+import Address from "../wrapper/Address.js";
+
 export default class ExtractInterface{
     constructor(extractClass, storeClass){
         this.extractClass = extractClass;
@@ -15,6 +18,7 @@ export default class ExtractInterface{
     }
     async setContent(query, text, file){
         let realObject = file ? file.object : text ? JSON.parse(text) : null;
-        await this.storeClass.setContent(query.docId, query.packetId, query.questionId, query.contentId, query.type, query.answer, query.createParent, query.replace, realObject);
+        let newContent = new Content(new Address(query.docId, query.packetId, query.questionId, query.contentId, query.answer), query.type, realObject)
+        await this.storeClass.setContent(newContent);
     }
 }

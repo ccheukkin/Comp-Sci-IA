@@ -129,8 +129,9 @@ export default class LocalFileStore{
         });
     }
     // modify the extraction
-    setContent(docId, packetId, questionId, content) {
-        let dir = `${getDocDir(docId)}/${packetId}/${questionId}`;
+    setContent(content) {
+        let address = content.address;
+        let dir = `${getDocDir(address.docId)}/${address.packetId}/${address.questionId}`;
         // docId, packetId and questionId combination does not exist
         if (!fs.existsSync(dir)){
             fs.mkdirSync(dir, {recursive: true});
@@ -160,10 +161,11 @@ export default class LocalFileStore{
         }
     }
     // set the categorization of a question
-    setCategories(categories, docId, packetId, questionId){
-        let dir = `${this.rootDir()}/${docId}/${packetId}/${questionId}`;
+    setCategories(question){
+        let address = question.address;
+        let dir = `${this.rootDir()}/${address.docId}/${address.packetId}/${address.questionId}`;
         if (fs.existsSync(dir)){
-            fs.writeFileSync(`${dir}/categories.json`, JSON.stringify(categories));
+            fs.writeFileSync(`${dir}/categories.json`, JSON.stringify(question.categories));
             return true;
         }
         return false;
