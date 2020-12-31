@@ -132,6 +132,7 @@ class QueryBox extends React.Component{
     render(){
         return(
             <div className={queryStyle.queryBox}>
+                <div className={queryStyle.title}>Topic:</div>
                 <Criteria
                     categories={this.props.categories}
                     state={this.state.topic}
@@ -140,6 +141,7 @@ class QueryBox extends React.Component{
                     handleEnter={this.handleTopicEnter}
                     handleExit={this.handleTopicExit}
                 />
+                <div className={queryStyle.title}>Mode:</div>
                 <Criteria
                     categories={["OR", "AND"]}
                     state={this.state.mode}

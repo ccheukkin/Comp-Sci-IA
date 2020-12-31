@@ -13,6 +13,10 @@
     padding-bottom: 30px;
     background-color: white;
 }
+.title{
+    margin-bottom: 3px;
+    font-weight: 700;
+}
 .criteriaRow{
     width: 100%;
     display: flex;
