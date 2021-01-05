@@ -1,13 +1,13 @@
 version: "3.8"
 
 services:
-  api:
-    image: quecat-api
+  api-server:
+    image: covector/quecat:api
     ports:
       - 4915:4915
     volumes:
       - ./local-storage:/local-storage
   web-server:
-    image: quecat-webpage
+    image: covector/quecat:webpage
     ports:
       - 3000:3000
