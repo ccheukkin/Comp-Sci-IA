@@ -1,10 +1,8 @@
 {
     "compilerOptions": {
-        "module": "es6",
+        "module": "ES6",
         "removeComments": true,
         "outDir": "build",
         "moduleResolution": "node"
-      },
-    "include": ["src/**/*"],
-    "exclude": ["src/wrappers.ts", "src/**/*.schema.ts"]
+    }
 }

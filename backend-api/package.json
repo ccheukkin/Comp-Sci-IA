@@ -2,9 +2,9 @@
   "name": "quecat-api",
   "version": "1.0.0",
   "description": "QueCat Backend API",
-  "main": "src/api/Interface.js",
+  "main": "src/api.js",
   "scripts": {
-    "start": "node src/api/Interface.js"
+    "start": "node src/api.js"
   },
   "author": "Chan Cheuk Kin",
   "license": "MIT",
