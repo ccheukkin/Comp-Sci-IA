@@ -1,0 +1,59 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Doc {
+  id            Int          @id @default(autoincrement())
+  desc          String
+  packets       Packet[]
+}
+
+model Packet {
+  id            Int          @id @default(autoincrement())
+  order         Int
+  questions     Question[]
+  document      Doc     @relation(fields: [docId], references: [id])
+  docId         Int
+}
+
+model Question {
+  id            Int          @id @default(autoincrement())
+  order         Int
+  contents      Content[]
+  categories    Category[]
+  packet        Packet       @relation(fields: [packetId], references: [id])
+  packetId      Int
+}
+
+model Content {
+  id            Int          @id @default(autoincrement())
+  order         Int
+  contentType   ContentType
+  dataType      DataType
+  obj           String
+  question      Question     @relation(fields: [questionId], references: [id])
+  questionId    Int
+}
+
+model Category {
+  id            Int          @id @default(autoincrement())
+  name          String
+  questions     Question[]
+}
+
+enum ContentType {
+  Question
+  Answer
+  Packet
+}
+
+enum DataType {
+  Text
+  ImageUrl
+  Table
+}

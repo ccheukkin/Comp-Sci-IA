@@ -1,9 +1,0 @@
-.vscode/*
-*.code-workspace
-
-# Local History for Visual Studio Code
-.history/
-
-# Custom
-ghm.sh
-local-storage

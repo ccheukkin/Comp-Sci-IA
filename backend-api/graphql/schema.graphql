@@ -1,0 +1,57 @@
+type Query {
+    getDoc(id: Int!): Doc!
+    getPacket(id: Int!): Packet!
+    getQuestion(id: Int!): Question!
+    getContent(id: Int!): Content!
+    filteredQuestions(categories: [String!]!, mode: FilterMode!)
+}
+
+type Mutation {
+    extract(url: String!): Int!
+    categorize(docId: Int!): boolean!
+    setDoc(): boolean!
+}
+
+type Doc {
+    id: Int!
+    desc: String!
+    packets: [Packet!]!
+}
+
+type Packet {
+    id: Int!
+    order: Int!
+    questions: [Question!]!
+}
+      
+type Question {
+    id: Int!
+    order: Int!
+    contents: [Content!]!
+    categories: [String!]
+}
+      
+type Content {
+    id: Int!
+    order: Int!
+    obj: String!
+    dataType: DataType!
+    contentType: ContentType!
+}
+      
+enum ContentType {
+    Question
+    Answer
+    Packet
+}
+
+enum DataType {
+    Text
+    ImageUrl
+    Table
+}
+      
+enum FilterType {
+    AND
+    OR
+}

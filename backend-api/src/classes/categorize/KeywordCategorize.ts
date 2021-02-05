@@ -1,5 +1,5 @@
-import CategorizeClass from "./categorize.schema"
+import { CategorizeAbstract } from "../classes-schema.js"
 
-let KeywordCategorize: CategorizeClass;
+let KeywordCategorize: CategorizeAbstract;
 
 export default KeywordCategorize;

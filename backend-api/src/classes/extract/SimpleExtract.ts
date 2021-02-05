@@ -1,5 +1,5 @@
-import ExtractClass from "./extract.schema"
+import { ExtractAbstract } from "../classes-schema.js"
 
-let SimpleExtract: ExtractClass;
+let SimpleExtract: ExtractAbstract;
 
 export default SimpleExtract;

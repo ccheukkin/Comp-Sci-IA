@@ -2,18 +2,21 @@
   "name": "quecat-api",
   "version": "1.0.0",
   "description": "QueCat Backend API",
-  "main": "src/api.js",
+  "main": "build/api/server.js",
   "scripts": {
-    "start": "node src/api.js"
+    "start": "node build/api/server.js"
   },
   "author": "Chan Cheuk Kin",
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "@prisma/client": "^2.16.0",
     "@types/node": "^14.14.20",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-fileupload": "^1.2.0",
+    "apollo-server": "^2.19.1",
     "mammoth": "^1.4.14"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.14.0",
+    "prisma": "^2.16.0"
   }
 }
