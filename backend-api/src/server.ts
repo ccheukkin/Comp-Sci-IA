@@ -5,6 +5,10 @@ import StoreClass from "./classes/store/MySqlStore.js"
 // /\ USE CUSTOM CLASSES HERE /\
 
 import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 import apollo from 'apollo-server'
 const { ApolloServer } = apollo;
 
@@ -13,11 +17,16 @@ const { ApolloServer } = apollo;
 const store: StoreClass = new StoreClass();
 
 const server = new ApolloServer({
-    typeDefs:  fs.readFileSync('../graphql/schema.graphql', 'utf8'),
-    resolvers:{
-        Query:{
-            getDoc: (parent, args)=>{
-                store.getDoc(args.id);
+    typeDefs:  fs.readFileSync(path.join(__dirname, '../graphql/schema.graphql'), 'utf8'),
+    resolvers: {
+        Query: {
+            getDoc: async (parent, args)=>{
+                return await store.getDoc(args.id);
+            }
+        },
+        Mutation: {
+            setDoc: async ()=>{
+                return await store.setDoc();
             }
         }
     }

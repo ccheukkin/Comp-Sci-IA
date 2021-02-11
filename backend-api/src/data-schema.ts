@@ -1,19 +1,47 @@
-import { Prisma, Content, ContentType, DataType } from '@prisma/client'
+import { ContentType, DataType } from "@prisma/client"
 
-type Doc = Prisma.DocGetPayload<{
-    include: { packets: true }
-}>
+interface Doc {
+    id?: number;
+    desc: String;
+    packets: Packet[];
+}
+  
+interface Packet {
+    id?: number;
+    order: number;
+    questions: Question[];
+}
+  
+interface Question {
+    id?: number;
+    order: number;
+    contents: Content[];
+    categories: Category[];
+}
+  
+interface Content {
+    id?: number;
+    order: number;
+    contentType: ContentType;
+    dataType: DataType;
+    obj: String;
+}
+  
+interface Category {
+    id?: number;
+    name: String;
+}
+  
+// enum ContentType {
+//     Question,
+//     Answer,
+//     Packet
+// }
+  
+// enum DataType {
+//     Text,
+//     ImageUrl,
+//     Table
+// }
 
-type Packet = Prisma.PacketGetPayload<{
-    include: { questions: true }
-}>
-
-type Question = Prisma.QuestionGetPayload<{
-    include: { contents: true, categories: true }
-}>
-
-type Category = Prisma.CategoryGetPayload<{
-    include: { questions: true }
-}>
-
-export { Doc, Packet, Question, Category, Content, ContentType, DataType }
+export { Doc, Packet, Question, Content, Category }

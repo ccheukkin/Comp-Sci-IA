@@ -9,8 +9,8 @@ abstract class CategorizeAbstract {
 }
 
 abstract class StoreAbstract {
-    abstract getDoc(id: number): Doc;
-    abstract setDoc(): boolean;
+    abstract getDoc(id: number): Promise<Doc>;
+    abstract setDoc(): Promise<boolean>;
 }
 
 export { ExtractAbstract, CategorizeAbstract, StoreAbstract };

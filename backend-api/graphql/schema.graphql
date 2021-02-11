@@ -1,15 +1,12 @@
 type Query {
     getDoc(id: Int!): Doc!
-    getPacket(id: Int!): Packet!
-    getQuestion(id: Int!): Question!
-    getContent(id: Int!): Content!
-    filteredQuestions(categories: [String!]!, mode: FilterMode!)
+    filteredQuestions(categories: [String!]!, mode: FilterMode!): [Question]!
 }
 
 type Mutation {
     extract(url: String!): Int!
-    categorize(docId: Int!): boolean!
-    setDoc(): boolean!
+    categorize(docId: Int!): Boolean!
+    setDoc: Boolean!
 }
 
 type Doc {
@@ -51,7 +48,7 @@ enum DataType {
     Table
 }
       
-enum FilterType {
+enum FilterMode {
     AND
     OR
 }

@@ -4,7 +4,7 @@
   "description": "QueCat Backend API",
   "main": "build/api/server.js",
   "scripts": {
-    "start": "node build/api/server.js"
+    "start": "node build/server.js"
   },
   "author": "Chan Cheuk Kin",
   "license": "MIT",
