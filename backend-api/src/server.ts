@@ -20,8 +20,17 @@ const server = new ApolloServer({
     typeDefs:  fs.readFileSync(path.join(__dirname, '../graphql/schema.graphql'), 'utf8'),
     resolvers: {
         Query: {
-            getDoc: async (parent, args)=>{
+            getDoc: async (_, args)=>{
                 return await store.getDoc(args.id);
+            },
+            getPacket: async (_, args)=>{
+                return await store.getPacket(args.id);
+            },
+            getQuestion: async (_, args)=>{
+                return await store.getQuestion(args.id);
+            },
+            getContent: async (_, args)=>{
+                return await store.getContent(args.id);
             }
         },
         Mutation: {

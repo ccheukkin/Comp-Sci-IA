@@ -1,6 +1,9 @@
 type Query {
     getDoc(id: Int!): Doc!
-    filteredQuestions(categories: [String!]!, mode: FilterMode!): [Question]!
+    getPacket(id: Int!): Packet!
+    getQuestion(id: Int!): Question!
+    getContent(id: Int!): Content!
+    getFilteredQuestions(categories: [String!]!, mode: FilterMode!): [Question]!
 }
 
 type Mutation {

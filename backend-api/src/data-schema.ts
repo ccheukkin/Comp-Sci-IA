@@ -1,5 +1,3 @@
-import { ContentType, DataType } from "@prisma/client"
-
 interface Doc {
     id?: number;
     desc: String;
@@ -32,16 +30,16 @@ interface Category {
     name: String;
 }
   
-// enum ContentType {
-//     Question,
-//     Answer,
-//     Packet
-// }
+enum ContentType {
+    Question,
+    Answer,
+    Packet
+}
   
-// enum DataType {
-//     Text,
-//     ImageUrl,
-//     Table
-// }
+enum DataType {
+    Text,
+    ImageUrl,
+    Table
+}
 
-export { Doc, Packet, Question, Content, Category }
+export { Doc, Packet, Question, Content, Category, ContentType, DataType }
