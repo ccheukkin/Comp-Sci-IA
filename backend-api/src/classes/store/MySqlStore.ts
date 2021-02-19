@@ -1,7 +1,7 @@
 import { StoreAbstract } from "../classes-schema.js"
 import pkg from '@prisma/client';
 const { PrismaClient } = pkg;
-import { Doc, Content, Question, Packet } from "../../data-schema.js"
+import { Doc, Content, Question, Packet, Category } from "../../data-schema.js"
 
 class MySqlStore extends StoreAbstract {
     prisma;
@@ -11,8 +11,13 @@ class MySqlStore extends StoreAbstract {
         this.prisma = new PrismaClient();
     }
     
-    //#region Getters
+    //#region Read
     //#region Selectors
+    categorySelect = {
+        id: true,
+        name: true
+    }
+
     contentSelect = {
         id: true,
         order: true,
@@ -24,7 +29,9 @@ class MySqlStore extends StoreAbstract {
     questionSelect = {
         id: true,
         order: true,
-        categories: true,
+        categories: {
+            select: this.categorySelect
+        },
         contents: {
             select: this.contentSelect
         }
@@ -46,75 +53,286 @@ class MySqlStore extends StoreAbstract {
         }
     }
     //#endregion
-    //#region Get from Database
-    async getDoc(id: number): Promise<Doc> {
+    //#region Read from Database
+    async readDoc(id: number): Promise<Doc|null> {
         return await this.prisma.doc.findUnique({
             where: {
                 id: id
             },
             select: this.docSelect
-        }) as Doc;
+        });
     }
 
-    async getPacket(id: number): Promise<Packet> {
+    async readPacket(id: number): Promise<Packet|null> {
         return await this.prisma.packet.findUnique({
             where: {
                 id: id
             },
             select: this.packetSelect
-        }) as Packet;
+        });
     }
 
-    async getQuestion(id: number): Promise<Question> {
+    async readQuestion(id: number): Promise<Question|null> {
         return await this.prisma.question.findUnique({
             where: {
                 id: id
             },
             select: this.questionSelect
-        }) as Question;
+        });
     }
 
-    async getContent(id: number): Promise<Content> {
+    async readContent(id: number): Promise<Content|null> {
         return await this.prisma.content.findUnique({
             where: {
                 id: id
             },
             select: this.contentSelect
-        }) as Content;
+        });
+    }
+    async readAllCategories(): Promise<Category[]> {
+        return await this.prisma.category.findMany({
+            select: this.categorySelect
+        });
     }
     //#endregion
     //#endregion
-    
-    //#region Setters
-    async setDoc(): Promise<boolean> {
-        let newContent = {
-            order: 0,
-            contentType: "Question",
-            dataType: "Text",
-            obj: "Sample Question. This is a sample question for testing",
-        }
 
-        let newQuestion = {
-            order: 0,
-            contents: {create: [newContent]},
-            categories: []
+    //#region Create
+    //#region Transform to create syntax
+    transformDoc(startingDoc: Doc) {
+        let { packets, id, ...rest } = startingDoc;
+        return {
+            ...rest,
+            packets: {
+                create: packets.map((packet)=>this.transformPacket(packet))
+            }
         }
+    }
 
-        let newPacket = {
-            order: 0,
-            questions: {create: [newQuestion]}
+    transformPacket(startingPacket: Packet) {
+        let { questions, id, ...rest } = startingPacket;
+        return {
+            ...rest,
+            questions: {
+                create: questions.map((question)=>this.transformQuestion(question))
+            }
         }
+    }
 
-        let newDoc = {
-            desc: "Sample Document",
-            packets: {create: [newPacket]}
+    transformQuestion(startingQuestion: Question) {
+        let { contents, categories, id, ...rest } = startingQuestion;
+        return {
+            ...rest,
+            contents: {
+                create: contents.map((content)=>this.transformContent(content))
+            }
         }
+    }
 
-        await this.prisma.doc.create({
-            data: newDoc
+    transformContent(startingContent: Content) {
+        let { id, ...rest } = startingContent;
+        return rest;
+    }
+    //#endregion
+    //#region Create to Database
+    async createDoc(newDoc: Doc): Promise<number|null> {
+        let createdDoc = await this.prisma.doc.create({
+            data: this.transformDoc(newDoc)
         });
+        return createdDoc?.id;
+    }
+    
+    async createPacket(docId: number, newPacket: Packet): Promise<number|null> {
+        let createdPacket = await this.prisma.packet.create({
+            data: {
+                ...(this.transformPacket(newPacket)),
+                document: {
+                    connect: {
+                        id: docId
+                    }
+                }
+            },
+            include: {
+                document: true
+            }
+        });
+        return createdPacket?.id;
+    }
 
-        return true;
+    async createQuestion(packetId: number, newQuestion: Question): Promise<number|null> {
+        let createdQuestion = await this.prisma.question.create({
+            data: {
+                ...(this.transformQuestion(newQuestion)),
+                packet: {
+                    connect: {
+                        id: packetId
+                    }
+                }
+            },
+            include: {
+                packet: true,
+                categories: true
+            }
+        });
+        return createdQuestion?.id;
+    }
+
+    async createContent(questionId: number, newContent: Content): Promise<number|null> {
+        let createdContent = await this.prisma.content.create({
+            data: {
+                ...(this.transformContent(newContent)),
+                question: {
+                    connect: {
+                        id: questionId
+                    }
+                }
+            },
+            include: {
+                question: true
+            }
+        });
+        return createdContent?.id;
+    }
+
+    async createCategory(name: String): Promise<number|null> {
+        let createdCategory = await this.prisma.category.create({
+            data: {
+                name
+            }
+        });
+        return createdCategory?.id;
+    }
+    //#endregion
+    //#endregion
+
+    //#region Update
+    async updateDesc(docId: number, newDesc: String): Promise<boolean|null> {
+        let updatedDoc = await this.prisma.doc.update({
+            where: {
+                id: docId
+            },
+            data: {
+                desc: newDesc
+            }
+        });
+        return updatedDoc ? true : false;
+    }
+
+    async updateContent(contentId: number, newContent: Content): Promise<boolean> {
+        let updatedContent = await this.prisma.content.update({
+            where: {
+                id: contentId
+            },
+            data: newContent
+        });
+        return updatedContent ? true : false;
+    }
+
+    async categorizeQuestion(questionId: number, categories: number[]): Promise<boolean> {
+        let updatedQuestion = await this.prisma.category.update({
+            where: {
+                id: questionId
+            },
+            data: {
+                categories: {
+                    connect: categories.map((id)=>{ return {id} })
+                }
+            }
+        });
+        return updatedQuestion ? true : false;
+    }
+
+    async renameCategory(categoryId: number, newName: String): Promise<boolean> {
+        let updatedCategory = await this.prisma.category.update({
+            where: {
+                id: categoryId
+            },
+            data: {
+                name: newName
+            }
+        });
+        return updatedCategory ? true : false;
+    }
+    //#endregion
+
+    //#region Delete
+    async deleteDoc(id: number, recursive: boolean): Promise<boolean> {
+        if (recursive) {
+            await this.prisma.content.delete({
+                where: {
+                    question: {
+                        packet: {
+                            document: { id }
+                        }
+                    }
+                }
+            });
+            await this.prisma.question.delete({
+                where: { 
+                    packet: {
+                        document: { id }
+                    }    
+                }
+            });
+            await this.prisma.packet.delete({
+                where: { 
+                    document: { id }
+                }
+            });
+        }
+        let deletedDoc = await this.prisma.doc.delete({
+            where: { id }
+        });
+        return deletedDoc ? true : false;
+    }
+
+    async deletePacket(id: number, recursive: boolean): Promise<boolean> {
+        if (recursive) {
+            await this.prisma.content.delete({
+                where: { 
+                    question: {
+                        packet: { id }
+                    }    
+                }
+            });
+            await this.prisma.question.delete({
+                where: { 
+                    packet: { id }
+                }
+            });
+        }
+        let deletedPacket = await this.prisma.packet.delete({
+            where: { id }
+        });
+        return deletedPacket ? true : false;
+    }
+
+    async deleteQuestion(id: number, recursive: boolean): Promise<boolean> {
+        if (recursive) {
+            await this.prisma.content.delete({
+                where: { 
+                    question: { id }    
+                }
+            });
+        }
+        let deletedQuestion = await this.prisma.question.delete({
+            where: { id }
+        });
+        return deletedQuestion ? true : false;
+    }
+
+    async deleteContent(id: number): Promise<boolean> {
+        let deletedContent = await this.prisma.content.delete({
+            where: { id }
+        });
+        return deletedContent ? true : false;
+    }
+
+    async deleteCategory(id: number): Promise<boolean> {
+        let deletedCategory = await this.prisma.category.delete({
+            where: { id }
+        });
+        return deletedCategory ? true : false;
     }
     //#endregion
 };

@@ -20,22 +20,41 @@ const server = new ApolloServer({
     typeDefs:  fs.readFileSync(path.join(__dirname, '../graphql/schema.graphql'), 'utf8'),
     resolvers: {
         Query: {
-            getDoc: async (_, args)=>{
-                return await store.getDoc(args.id);
+            readDoc: async (_, args)=>{
+                return await store.readDoc(args.id);
             },
-            getPacket: async (_, args)=>{
-                return await store.getPacket(args.id);
+            readPacket: async (_, args)=>{
+                return await store.readPacket(args.id);
             },
-            getQuestion: async (_, args)=>{
-                return await store.getQuestion(args.id);
+            readQuestion: async (_, args)=>{
+                return await store.readQuestion(args.id);
             },
-            getContent: async (_, args)=>{
-                return await store.getContent(args.id);
+            readContent: async (_, args)=>{
+                return await store.readContent(args.id);
+            },
+            readAllCategories: async ()=>{
+                return await store.readAllCategories();
             }
         },
         Mutation: {
-            setDoc: async ()=>{
-                return await store.setDoc();
+            createDoc: async (_, args)=>{
+                let doc = JSON.parse(args.doc);
+                return await store.createDoc(doc);
+            },
+            createPacket: async (_, args)=>{
+                let packet = JSON.parse(args.packet);
+                return await store.createPacket(args.docId, packet);
+            },
+            createQuestion: async (_, args)=>{
+                let question = JSON.parse(args.question);
+                return await store.createQuestion(args.packetId, question);
+            },
+            createContent: async (_, args)=>{
+                let content = JSON.parse(args.content);
+                return await store.createContent(args.questionId, content);
+            },
+            createCategory: async (_, args)=>{
+                return await store.createCategory(args.name);
             }
         }
     }

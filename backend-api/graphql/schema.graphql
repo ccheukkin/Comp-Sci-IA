@@ -1,15 +1,22 @@
 type Query {
-    getDoc(id: Int!): Doc!
-    getPacket(id: Int!): Packet!
-    getQuestion(id: Int!): Question!
-    getContent(id: Int!): Content!
+    readDoc(id: Int!): Doc!
+    readPacket(id: Int!): Packet!
+    readQuestion(id: Int!): Question!
+    readContent(id: Int!): Content!
+    readAllCategories: [Category!]!
     getFilteredQuestions(categories: [String!]!, mode: FilterMode!): [Question]!
 }
 
 type Mutation {
+    createDoc(doc: String!): Int!
+    createPacket(docId: Int!, packet: String!): Int!
+    createQuestion(packetId: Int!, question: String!): Int!
+    createContent(questionId: Int!, content: String!): Int!
+    createCategory(name: String!): Int!
     extract(url: String!): Int!
     categorize(docId: Int!): Boolean!
     setDoc: Boolean!
+    setContent(id: Int, order: Int!, obj: String!, dataType: DataType!, contentType: ContentType!, allowNew: Boolean): Boolean
 }
 
 type Doc {
@@ -28,7 +35,7 @@ type Question {
     id: Int!
     order: Int!
     contents: [Content!]!
-    categories: [String!]
+    categories: [Category!]
 }
       
 type Content {
@@ -37,6 +44,11 @@ type Content {
     obj: String!
     dataType: DataType!
     contentType: ContentType!
+}
+
+type Category {
+    id: Int!
+    name: String!
 }
       
 enum ContentType {
