@@ -1,4 +1,4 @@
-import { ExtractAbstract } from "../classes-schema.js"
+import { ExtractAbstract } from "../../classes-schema.js"
 
 let SimpleExtract: ExtractAbstract;
 

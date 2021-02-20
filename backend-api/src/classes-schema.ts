@@ -1,4 +1,4 @@
-import { Doc, Content, Packet, Question, Category } from "../data-schema.js"
+import { Doc, Content, Packet, Question, Category } from "./data-schema.js"
 
 abstract class ExtractAbstract {
     abstract extract(docId: number, docUrl: string, opts: object): Packet[];

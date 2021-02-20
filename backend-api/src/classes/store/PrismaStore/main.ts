@@ -1,9 +1,9 @@
-import { StoreAbstract } from "../classes-schema.js"
+import { StoreAbstract } from "../../../classes-schema.js"
 import pkg from '@prisma/client';
 const { PrismaClient } = pkg;
-import { Doc, Content, Question, Packet, Category } from "../../data-schema.js"
+import { Doc, Content, Question, Packet, Category } from "../../../data-schema.js"
 
-class MySqlStore extends StoreAbstract {
+class PrismaStore extends StoreAbstract {
     prisma;
 
     constructor() {
@@ -151,9 +151,6 @@ class MySqlStore extends StoreAbstract {
                         id: docId
                     }
                 }
-            },
-            include: {
-                document: true
             }
         });
         return createdPacket?.id;
@@ -168,10 +165,6 @@ class MySqlStore extends StoreAbstract {
                         id: packetId
                     }
                 }
-            },
-            include: {
-                packet: true,
-                categories: true
             }
         });
         return createdQuestion?.id;
@@ -186,9 +179,6 @@ class MySqlStore extends StoreAbstract {
                         id: questionId
                     }
                 }
-            },
-            include: {
-                question: true
             }
         });
         return createdContent?.id;
@@ -229,7 +219,7 @@ class MySqlStore extends StoreAbstract {
     }
 
     async categorizeQuestion(questionId: number, categories: number[]): Promise<boolean> {
-        let updatedQuestion = await this.prisma.category.update({
+        let updatedQuestion = await this.prisma.question.update({
             where: {
                 id: questionId
             },
@@ -258,24 +248,24 @@ class MySqlStore extends StoreAbstract {
     //#region Delete
     async deleteDoc(id: number, recursive: boolean): Promise<boolean> {
         if (recursive) {
-            await this.prisma.content.delete({
+            await this.prisma.content.deleteMany({
                 where: {
-                    question: {
+                    question:{
                         packet: {
                             document: { id }
                         }
                     }
                 }
             });
-            await this.prisma.question.delete({
-                where: { 
+            await this.prisma.question.deleteMany({
+                where: {
                     packet: {
                         document: { id }
-                    }    
+                    }
                 }
             });
-            await this.prisma.packet.delete({
-                where: { 
+            await this.prisma.packet.deleteMany({
+                where: {
                     document: { id }
                 }
             });
@@ -288,14 +278,14 @@ class MySqlStore extends StoreAbstract {
 
     async deletePacket(id: number, recursive: boolean): Promise<boolean> {
         if (recursive) {
-            await this.prisma.content.delete({
+            await this.prisma.content.deleteMany({
                 where: { 
                     question: {
                         packet: { id }
                     }    
                 }
             });
-            await this.prisma.question.delete({
+            await this.prisma.question.deleteMany({
                 where: { 
                     packet: { id }
                 }
@@ -309,7 +299,7 @@ class MySqlStore extends StoreAbstract {
 
     async deleteQuestion(id: number, recursive: boolean): Promise<boolean> {
         if (recursive) {
-            await this.prisma.content.delete({
+            await this.prisma.content.deleteMany({
                 where: { 
                     question: { id }    
                 }
@@ -337,4 +327,4 @@ class MySqlStore extends StoreAbstract {
     //#endregion
 };
 
-export default MySqlStore;
+export default PrismaStore;

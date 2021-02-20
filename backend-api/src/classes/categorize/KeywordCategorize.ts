@@ -1,4 +1,4 @@
-import { CategorizeAbstract } from "../classes-schema.js"
+import { CategorizeAbstract } from "../../classes-schema.js"
 
 let KeywordCategorize: CategorizeAbstract;
 

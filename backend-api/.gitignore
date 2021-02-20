@@ -116,6 +116,4 @@ dist
 .pnp.*
 
 # custom
-local-storage
-build
-src_old
+*.js

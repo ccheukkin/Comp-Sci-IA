@@ -1,7 +1,7 @@
 // \/ USE CUSTOM CLASSES HERE \/
 import ExtractClass from "./classes/extract/SimpleExtract.js"
 import CategorizeClass from "./classes/categorize/KeywordCategorize.js"
-import StoreClass from "./classes/store/MySqlStore.js"
+import StoreClass from "./classes/store/PrismaStore/main.js"
 // /\ USE CUSTOM CLASSES HERE /\
 
 import fs from 'fs'
@@ -17,7 +17,7 @@ const { ApolloServer } = apollo;
 const store: StoreClass = new StoreClass();
 
 const server = new ApolloServer({
-    typeDefs:  fs.readFileSync(path.join(__dirname, '../graphql/schema.graphql'), 'utf8'),
+    typeDefs:  fs.readFileSync(path.join(__dirname, 'graphql/schema.graphql'), 'utf8'),
     resolvers: {
         Query: {
             readDoc: async (_, args)=>{
@@ -55,6 +55,34 @@ const server = new ApolloServer({
             },
             createCategory: async (_, args)=>{
                 return await store.createCategory(args.name);
+            },
+            categorizeQuestion: async (_, args)=>{
+                return await store.categorizeQuestion(args.questionId, args.categories);
+            },
+            updateDesc: async (_, args)=>{
+                return await store.updateDesc(args.docId, args.newDesc);
+            },
+            updateContent: async (_, args)=>{
+                let content = JSON.parse(args.newContent);
+                return await store.updateContent(args.contentId, content);
+            },
+            renameCategory: async (_, args)=>{
+                return await store.renameCategory(args.categoryId, args.newName);
+            },
+            deleteDoc: async (_, args)=>{
+                return await store.deleteDoc(args.id, args.recursive);
+            },
+            deletePacket: async (_, args)=>{
+                return await store.deletePacket(args.id, args.recursive);
+            },
+            deleteQuestion: async (_, args)=>{
+                return await store.deleteQuestion(args.id, args.recursive);
+            },
+            deleteContent: async (_, args)=>{
+                return await store.deleteContent(args.id);
+            },
+            deleteCategory: async (_, args)=>{
+                return await store.deleteCategory(args.id);
             }
         }
     }

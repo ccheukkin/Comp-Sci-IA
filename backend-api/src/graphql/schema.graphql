@@ -4,7 +4,6 @@ type Query {
     readQuestion(id: Int!): Question!
     readContent(id: Int!): Content!
     readAllCategories: [Category!]!
-    getFilteredQuestions(categories: [String!]!, mode: FilterMode!): [Question]!
 }
 
 type Mutation {
@@ -13,10 +12,15 @@ type Mutation {
     createQuestion(packetId: Int!, question: String!): Int!
     createContent(questionId: Int!, content: String!): Int!
     createCategory(name: String!): Int!
-    extract(url: String!): Int!
-    categorize(docId: Int!): Boolean!
-    setDoc: Boolean!
-    setContent(id: Int, order: Int!, obj: String!, dataType: DataType!, contentType: ContentType!, allowNew: Boolean): Boolean
+    categorizeQuestion(questionId: Int!, categories: [Int!]!): Boolean!
+    updateDesc(docId: Int!, newDesc: String!): Boolean!
+    updateContent(contentId: Int!, newContent: String!): Boolean!
+    renameCategory(categoryId: Int!, newName: String!): Boolean!
+    deleteDoc(id: Int!, recursive: Boolean!): Boolean!
+    deletePacket(id: Int!, recursive: Boolean!): Boolean!
+    deleteQuestion(id: Int!, recursive: Boolean!): Boolean!
+    deleteContent(id: Int!): Boolean!
+    deleteCategory(id: Int!): Boolean!
 }
 
 type Doc {
